@@ -36,7 +36,11 @@
             var orderInfoList = JSON.parse(orderPageResult).jingdong_pop_order_search_responce.searchorderinfo_result.orderInfoList;
             for (var i = 0; i < orderInfoList.length; i++) {
                 var row = orderInfoList[i];
-                $("#orderTable", self.parent.frames["mainFrame"].document).append("<tr><td>" + row.orderId + "</td><td>" + row.orderTotalPrice + "</td><td>" + row.consigneeInfo.fullAddress + "</td><td>" + row.consigneeInfo.telephone + "</td><td>" + JSON.stringify(row.itemInfoList) + "</td></tr>");
+                var itemNames='';
+                for (var j=0;j<row.itemInfoList.length;j++){
+                    itemNames+=row.itemInfoList[j].skuName+",";
+                }
+                $("#orderTable", self.parent.frames["mainFrame"].document).append("<tr><td>" + row.orderId + "</td><td>" + row.orderTotalPrice + "</td><td>" + row.consigneeInfo.fullAddress + "</td><td>" + row.consigneeInfo.telephone + "</td><td>" + itemNames + "</td></tr>");
             }
         }
     })
