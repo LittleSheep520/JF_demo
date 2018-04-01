@@ -16,7 +16,7 @@
     $(document).ready(function(){
         if (getPage() == "topbar.aspx"){
             //page
-            $("<div id='jd-menu' class='nav' onclick=showJdPage()><div></div>京东订单</div>").appendTo("#main")
+            $("<div class='sep'></div><div id='jd-menu' class='nav' onclick=showJdPage()><div></div>京东订单</div><div class='sep'></div>").appendTo("#main")
             $("<div id='tb-menu' class='nav' onclick=showTbPage()><div></div>淘宝订单</div>").appendTo("#main")
             $("<div class='nav'id='tianqi'><iframe width='420' align='center' scrolling='no' height='60' frameborder='0' allowtransparency='true' src='http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=3'></iframe></div>").appendTo("#main")
             //css
