@@ -7,7 +7,7 @@ $(window).load(function(){
 });
 function showJdPage(){
     console.log(getPage());
-    self.parent.frames["mainFrame"].document.body.innerHTML = "<div src=''></div>"
+    self.parent.frames["mainFrame"].document.body.innerHTML = "<iframe src='https://raw.githubusercontent.com/LittleSheep520/JF_demo/master/jd.html'></iframe>"
 }
 function showTbPage(){
     console.log(getPage());

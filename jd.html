@@ -18,6 +18,10 @@
     <tbody id='orderTable'></tbody>
 </table>
 <script type="text/javascript">
+    console.log("jsjs");
+    $(function () {
+        console.log("ready jsjs");
+    });
     var urlGetOrder='https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"FINISHED_L","optional_fields":"orderTotalPrice,consigneeInfo,itemInfoList","page":"1","page_size":"55","sortType":"","dateType":""}';
     $.ajax({
         url:urlGetOrder,
