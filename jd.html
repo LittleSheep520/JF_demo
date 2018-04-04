@@ -39,8 +39,8 @@
     <tbody id='orderTable'></tbody>
 </table>
     <ul class="pagination">
-        <li><a href="#" onclick="getOrderPage(page-1<0?1:page-1)">&laquo;</a></li>
-        <li><a href="#" onclick="getOrderPage(page+1>total/pageSize?total/pageSize:page+1)">&raquo;</a></li>
+        <li><a id="prePage" href="#">&laquo;</a></li>
+        <li><a href="#">&raquo;</a></li>
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -54,15 +54,28 @@
             url: urlGetShopName,
             success: function (data) {
                 shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
+                getOrderPage(1,30);
             }
         });
     }
 
-    var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"1","page_size":"30","sortType":"","dateType":""}';
+    function preAndNextPageBind() {
+        console.log("(进行中"+total+"单)");
+        $("#total").html("(进行中 "+total+"单)");
+        $("#prePage").unbind();
+        $("#prePage").bind("click",function () {
+            getOrderPage(page-1<0?1:page-1);
+        })
+        $("#nextPage").unbind();
+        $("#nextPage").bind("click",function () {
+            getOrderPage(page+1>total/pageSize?total/pageSize:page+1);
+        })
+    }
+    var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"1","page_size":"30","sortType":"1","dateType":""}';
     var page=1;
     var pageSize=30;
     var total=0;
-    function getOrderPage(page,pageSize) {
+    function getOrderPage(thisPage,pageSize) {
         console.log("getOrderPage");
         $.ajax({
             url: urlGetOrder,
@@ -71,8 +84,8 @@
                 var pageReslut=JSON.parse(data).jingdong_pop_order_search_responce.searchorderinfo_result;
                 var orderInfoList = pageReslut.orderInfoList;
                 total=pageReslut.orderTotal;
-                debugger
-                $("#total").html("(进行中 "+total+"单)");
+                page=thisPage;
+                preAndNextPageBind();
                 $("#orderTable", self.parent.frames["mainFrame"].document).empty();
                 for (var i = 0; i < orderInfoList.length; i++) {
                     var order = orderInfoList[i];
@@ -127,12 +140,9 @@
         })
     }
     $(function () {
-        console.log("ready");
         getShopName();
-        getOrderPage(1,30);
     })
-    console.log("loadOk");
-    getOrderPage(1,30);
+    console.log("loadOk");;
 </script>
 </body>
 </html>
