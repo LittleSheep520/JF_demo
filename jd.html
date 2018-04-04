@@ -45,9 +45,11 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    console.log("load")
     var shopName="-";
     var urlGetShopName="https://api.jd.com/routerjson?v=2.0&method=jingdong.vender.shop.query&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={}&timestamp=2018-04-04 21:58:17&sign=F2A3CBC5205B7970AFD2A3B12F49A8B3";
     function getShopName() {
+        console.log("getShopName");
         $.ajax({
             url: urlGetShopName,
             success: function (data) {
@@ -61,9 +63,11 @@
     var pageSize=30;
     var total=0;
     function getOrderPage(page,pageSize) {
+        console.log("getOrderPage");
         $.ajax({
             url: urlGetOrder,
             success: function (data) {
+                console.log("getOrderPage success");
                 var pageReslut=JSON.parse(data).jingdong_pop_order_search_responce.searchorderinfo_result;
                 var orderInfoList = pageReslut.orderInfoList;
                 total=pageReslut.orderTotal;
@@ -105,7 +109,7 @@
                         + shopName + "</td><td>"
                         + row.orderTotalPrice + "</td><td>"
                         + row.pin + "</td><td>"
-                        + row.consigneeName + "</td><td>"JF
+                        + row.consigneeName + "</td><td>"
                         + row.consigneeAddress + "</td><td>"
                         + row.consigneeTelephone + "</td><td>"
                         + row.consigneeMobile + "</td><td>"
@@ -123,10 +127,12 @@
         })
     }
     $(function () {
+        console.log("ready");
         getShopName();
         getOrderPage(1,30);
     })
-
+    console.log("loadOk");
+    getOrderPage(1,30);
 </script>
 </body>
 </html>
