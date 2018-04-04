@@ -12,7 +12,7 @@
     }</style>
 </head>
 <body>
-<h1>京东订单数据同步<a id="total"></a></h1>
+<h4>京东订单数据同步<a id="total"></a></h4>
 <table class="table table-striped">
     <thead>
     <tr class="success">
@@ -20,7 +20,7 @@
         <th>下单时间</th>
         <th>付款时间</th>
         <th>下单平台</th>
-        <th>订单总金额</th>
+        <th>总金额</th>
         <th>买家ID</th>
         <th>收货人</th>
         <th>收货地址</th>
@@ -54,7 +54,7 @@
             url: urlGetShopName,
             success: function (data) {
                 shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
-                getOrderPage(1,30);
+                getOrderPage(1,pageSize);
             }
         });
     }
@@ -64,16 +64,18 @@
         $("#total").html("(进行中 "+total+"单)");
         $("#prePage").unbind();
         $("#prePage").bind("click",function () {
-            getOrderPage(page-1<0?1:page-1);
+            console.log("prePage");
+            getOrderPage(page-1<0?1:page-1,pageSize);
         })
         $("#nextPage").unbind();
         $("#nextPage").bind("click",function () {
-            getOrderPage(page+1>total/pageSize?total/pageSize:page+1);
+            console.log("nextPage");
+            getOrderPage(page+1>total/pageSize?total/pageSize:page+1,pageSize);
         })
     }
     var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"1","page_size":"30","sortType":"1","dateType":""}';
     var page=1;
-    var pageSize=30;
+    var pageSize=15;
     var total=0;
     function getOrderPage(thisPage,pageSize) {
         console.log("getOrderPage");
