@@ -40,6 +40,7 @@
 </table>
     <ul class="pagination">
         <li><a id="prePage" href="#">&laquo;</a></li>
+        <li><a id="page" href="#">1</a></li>
         <li><a id="nextPage" href="#">&raquo;</a></li>
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -64,7 +65,7 @@
         $("#total",self.parent.frames["mainFrame"].document).html("(进行中 "+total+"单)");
         $("#prePage",self.parent.frames["mainFrame"].document).unbind();
         $("#prePage",self.parent.frames["mainFrame"].document).bind("click",function () {
-            var prePage=page-1<0?1:page-1;
+            var prePage=page-1<1?1:page-1;
             console.log("prePage"+prePage);
             getOrderPage(prePage,pageSize);
         })
@@ -79,6 +80,7 @@
     var pageSize=15;
     var total=0;
     function getOrderPage(thisPage,pageSize) {
+        $("#page",self.parent.frames["mainFrame"].document).html(thisPage);
         console.log("getOrderPage");
         var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"'+thisPage+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
         $.ajax({
