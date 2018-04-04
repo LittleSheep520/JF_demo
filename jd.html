@@ -12,38 +12,104 @@
     }</style>
 </head>
 <body>
-<h1>京东订单数据同步</h1>
+<h1>京东订单数据同步<a id="total"></a></h1>
 <table class="table table-striped">
     <thead>
     <tr class="success">
-        <th>订单号</th>
-        <th>总价</th>
+        <th>订单编号</th>
+        <th>下单时间</th>
+        <th>付款时间</th>
+        <th>下单平台</th>
+        <th>订单总金额</th>
+        <th>买家ID</th>
+        <th>收货人</th>
         <th>收货地址</th>
-        <th>电话</th>
-        <th>商品</th>
+        <th>固定电话</th>
+        <th>手机</th>
+        <th>开票信息</th>
+        <th>发票抬头</th>
+        <th>税号</th>
+        <th>买家留言</th>
+        <th>商家留言</th>
+        <th>订单状态</th>
+        <th>订单来源</th>
+        <th>商品数</th>
     <tr>
     </thead>
     <tbody id='orderTable'></tbody>
 </table>
-
+    <ul class="pagination">
+        <li><a href="#" onclick="getOrderPage(page-1<0?1:page-1)">&laquo;</a></li>
+        <li><a href="#" onclick="getOrderPage(page+1>total/pageSize?total/pageSize:page+1)">&raquo;</a></li>
+    </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"FINISHED_L","optional_fields":"orderTotalPrice,consigneeInfo,itemInfoList","page":"1","page_size":"55","sortType":"","dateType":""}';
-    $.ajax({
-        url: urlGetOrder,
-        success: function (orderPageResult) {
-            var orderInfoList = JSON.parse(orderPageResult).jingdong_pop_order_search_responce.searchorderinfo_result.orderInfoList;
-            for (var i = 0; i < orderInfoList.length; i++) {
-                var row = orderInfoList[i];
-                var itemNames='';
-                for (var j=0;j<row.itemInfoList.length;j++){
-                    itemNames+=row.itemInfoList[j].skuName+",";
+    var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"1","page_size":"30","sortType":"","dateType":""}';
+    var page=1;
+    var pageSize=30;
+    var total=0;
+    function getOrderPage(page,pageSize) {
+        $.ajax({
+            url: urlGetOrder,
+            success: function (data) {
+                var pageReslut=JSON.parse(data).jingdong_pop_order_search_responce.searchorderinfo_result;
+                var orderInfoList = pageReslut.orderInfoList;
+                total=pageReslut.orderTotal;
+                $("#total").html("(进行中 "+total+"单)");
+                for (var i = 0; i < orderInfoList.length; i++) {
+                    var order = orderInfoList[i];
+                    var row=new Object();
+                    row.orderId=order.orderId;
+                    row.orderStartTime=order.orderStartTime;
+                    row.paymentConfirmTime=order.paymentConfirmTime;
+                    //var shopName=
+                    row.orderTotalPrice=order.orderTotalPrice;
+                    row.pin=order.pin;
+                    row.consigneeName=order.consigneeInfo.fullname;
+                    row.consigneeAddress=order.consigneeInfo.fullAddress;
+                    row.consigneeTelephone=order.consigneeInfo.telephone;
+                    row.consigneeMobile=order.consigneeInfo.mobile;
+
+                    row.invoiceInfo=order.invoiceInfo;
+                    row.invoiceTitle=order.invoiceEasyInfo.invoiceTitle;
+                    row.invoiceCode=order.invoiceEasyInfo.invoiceCode;
+
+                    row.venderRemark=order.venderRemark;
+                    row.orderRemark=order.orderRemark;
+                    row.orderState=order.orderState;
+                    row.orderSource=order.orderSource;
+
+
+                    var itemNames='';
+                    for (var j=0;j<order.itemInfoList.length;j++){
+                        itemNames+=order.itemInfoList[j].skuName+",";
+                    }
+
+                    $("#orderTable", self.parent.frames["mainFrame"].document).empty();
+                    $("#orderTable", self.parent.frames["mainFrame"].document).append("<tr><td>"
+                        + row.orderId + "</td><td>"
+                        + row.orderStartTime + "</td><td>"
+                        + row.paymentConfirmTime + "</td><td>"
+                        + row.orderTotalPrice + "</td><td>"
+                        + row.pin + "</td><td>"
+                        + row.consigneeName + "</td><td>"
+                        + row.consigneeAddress + "</td><td>"
+                        + row.consigneeTelephone + "</td><td>"
+                        + row.consigneeMobile + "</td><td>"
+                        + row.invoiceInfo + "</td><td>"
+                        + row.invoiceTitle + "</td><td>"
+                        + row.invoiceCode + "</td><td>"
+                        + row.venderRemark + "</td><td>"
+                        + row.orderRemark + "</td><td>"
+                        + row.orderState + "</td><td>"
+                        + row.orderSource + "</td><td>"
+                        + order.itemInfoList[j].length + "</td></tr>");
                 }
-                $("#orderTable", self.parent.frames["mainFrame"].document).append("<tr><td>" + row.orderId + "</td><td>" + row.orderTotalPrice + "</td><td>" + row.consigneeInfo.fullAddress + "</td><td>" + row.consigneeInfo.telephone + "</td><td>" + itemNames + "</td></tr>");
             }
-        }
-    })
+        })
+    }
+    getOrderPage(1,30);
 </script>
 </body>
 </html>
