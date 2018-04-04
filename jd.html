@@ -40,7 +40,7 @@
 </table>
     <ul class="pagination">
         <li><a id="prePage" href="#">&laquo;</a></li>
-        <li><a href="#">&raquo;</a></li>
+        <li><a id="nextPage" href="#">&raquo;</a></li>
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -61,22 +61,22 @@
 
     function preAndNextPageBind() {
         console.log("(进行中"+total+"单)");
-        $("#total").html("(进行中 "+total+"单)");
-        $("#prePage").unbind();
-        $("#prePage").bind("click",function () {
+        $("#total",self.parent.frames["mainFrame"].document).html("(进行中 "+total+"单)");
+        $("#prePage",self.parent.frames["mainFrame"].document).unbind();
+        $("#prePage",self.parent.frames["mainFrame"].document).bind("click",function () {
             console.log("prePage");
             getOrderPage(page-1<0?1:page-1,pageSize);
         })
-        $("#nextPage").unbind();
-        $("#nextPage").bind("click",function () {
+        $("#nextPage",self.parent.frames["mainFrame"].document).unbind();
+        $("#nextPage",self.parent.frames["mainFrame"].document).bind("click",function () {
             console.log("nextPage");
             getOrderPage(page+1>total/pageSize?total/pageSize:page+1,pageSize);
         })
     }
-    var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"1","page_size":"30","sortType":"1","dateType":""}';
     var page=1;
     var pageSize=15;
     var total=0;
+    var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"'+page+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
     function getOrderPage(thisPage,pageSize) {
         console.log("getOrderPage");
         $.ajax({
