@@ -70,7 +70,7 @@
         })
         $("#nextPage",self.parent.frames["mainFrame"].document).unbind();
         $("#nextPage",self.parent.frames["mainFrame"].document).bind("click",function () {
-            var nextPage=page+1>total/pageSize?total/pageSize:page+1;
+            var nextPage=page+1>parseInt(total/pageSize)+1?parseInt(total/pageSize)+1:page+1;
             console.log("nextPage"+nextPage);
             getOrderPage(nextPage,pageSize);
         })
