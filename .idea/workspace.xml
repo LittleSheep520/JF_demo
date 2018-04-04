@@ -41,11 +41,12 @@
       <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-819">
-              <caret line="70" column="62" lean-forward="false" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+            <state relative-caret-position="513">
+              <caret line="72" column="46" lean-forward="false" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="46" />
               <folding>
-                <element signature="e#1029#1036#1" expanded="true" />
-                <element signature="e#1084#1091#1" expanded="true" />
+                <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#1049#1056#1" expanded="true" />
+                <element signature="e#1104#1111#1" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,12 +149,12 @@
       <updated>1522422591594</updated>
       <workItem from="1522422592713" duration="9208000" />
       <workItem from="1522559339580" duration="11186000" />
-      <workItem from="1522845602551" duration="6908000" />
+      <workItem from="1522845602551" duration="7285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27302000" />
+    <option name="totallyTimeSpent" value="27679000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -212,8 +213,9 @@
         <state relative-caret-position="627">
           <caret line="33" column="25" lean-forward="true" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding>
-            <element signature="e#1029#1036#1" expanded="true" />
-            <element signature="e#1084#1091#1" expanded="true" />
+            <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#1049#1056#1" expanded="true" />
+            <element signature="e#1104#1111#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -273,11 +275,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-819">
-          <caret line="70" column="62" lean-forward="false" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+        <state relative-caret-position="513">
+          <caret line="72" column="46" lean-forward="false" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="46" />
           <folding>
-            <element signature="e#1029#1036#1" expanded="true" />
-            <element signature="e#1084#1091#1" expanded="true" />
+            <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#1049#1056#1" expanded="true" />
+            <element signature="e#1104#1111#1" expanded="true" />
           </folding>
         </state>
       </provider>
