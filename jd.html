@@ -45,6 +45,17 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    var shopName="-";
+    var urlGetShopName="https://api.jd.com/routerjson?v=2.0&method=jingdong.vender.shop.query&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={}&timestamp=2018-04-04 21:58:17&sign=F2A3CBC5205B7970AFD2A3B12F49A8B3";
+    function getShopName() {
+        $.ajax({
+            url: urlGetShopName,
+            success: function (data) {
+                shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
+            }
+        });
+    }
+
     var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"1","page_size":"30","sortType":"","dateType":""}';
     var page=1;
     var pageSize=30;
@@ -56,7 +67,9 @@
                 var pageReslut=JSON.parse(data).jingdong_pop_order_search_responce.searchorderinfo_result;
                 var orderInfoList = pageReslut.orderInfoList;
                 total=pageReslut.orderTotal;
+                debugger
                 $("#total").html("(进行中 "+total+"单)");
+                $("#orderTable", self.parent.frames["mainFrame"].document).empty();
                 for (var i = 0; i < orderInfoList.length; i++) {
                     var order = orderInfoList[i];
                     var row=new Object();
@@ -85,15 +98,14 @@
                     for (var j=0;j<order.itemInfoList.length;j++){
                         itemNames+=order.itemInfoList[j].skuName+",";
                     }
-
-                    $("#orderTable", self.parent.frames["mainFrame"].document).empty();
-                    $("#orderTable", self.parent.frames["mainFrame"].document).append("<tr><td>"
+                    var tr="<tr><td>"
                         + row.orderId + "</td><td>"
                         + row.orderStartTime + "</td><td>"
                         + row.paymentConfirmTime + "</td><td>"
+                        + shopName + "</td><td>"
                         + row.orderTotalPrice + "</td><td>"
                         + row.pin + "</td><td>"
-                        + row.consigneeName + "</td><td>"
+                        + row.consigneeName + "</td><td>"JF
                         + row.consigneeAddress + "</td><td>"
                         + row.consigneeTelephone + "</td><td>"
                         + row.consigneeMobile + "</td><td>"
@@ -104,12 +116,17 @@
                         + row.orderRemark + "</td><td>"
                         + row.orderState + "</td><td>"
                         + row.orderSource + "</td><td>"
-                        + order.itemInfoList[j].length + "</td></tr>");
+                        + order.itemInfoList.length + "</td></tr>";
+                    $("#orderTable", self.parent.frames["mainFrame"].document).append(tr);
                 }
             }
         })
     }
-    getOrderPage(1,30);
+    $(function () {
+        getShopName();
+        getOrderPage(1,30);
+    })
+
 </script>
 </body>
 </html>
