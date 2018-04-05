@@ -205,10 +205,31 @@
         });
     }
 
+    function getOrderList(orderListHandler){
+        var pageIndex=1;
+        var pageSize=50;
+        var total;
+        var orderlist=[];
+        getOrderPageData(1,1,function (pageReslut) {
+            total=pageReslut.pageReslut.orderTotal;
+        });
+        for(var i=1;i<parseInt(total/pageSize)+2;i++){
+            getOrderPageData(i,pageSize,function (pageReslut) {
+                orderlist.push(pageReslut.orderInfoList);
+                if(orderlist.length==total){
+                    //console.log("getOrderList抓取完毕"+total);
+                    orderListHandler(orderlist);
+                }
+            })
+        }
+    }
     var baseUrl="http://zjtyjj.320.io";
-    function importOrderList(orderList){
-        
+    function importOrderList(){
         console.log("downloadOrderList");
+        getOrderList(function (orderList) {
+            console.log("getOrderList抓取完毕"+orderList.length);
+        })
+        return;
         $.ajax({
             url: "http://host/api/1",//接口：api/{模板ID}
             type: "delete",
@@ -242,7 +263,7 @@
     }
     $(function () {
         loadShop(shopConfig);
-        //importOrderList();
+        importOrderList();
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
