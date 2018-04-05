@@ -63,8 +63,6 @@
     }
 
     function preAndNextPageBind() {
-        console.log("(进行中"+total+"单)");
-        $("#total",self.parent.frames["mainFrame"].document).html("(进行中 "+total+"单)");
         $("#prePage",self.parent.frames["mainFrame"].document).unbind();
         $("#prePage",self.parent.frames["mainFrame"].document).bind("click",function () {
             var prePage=currentPage-1<1?1:currentPage-1;
@@ -137,10 +135,11 @@
     function getOrderPage(thisPage,pageSize) {
         console.log("getOrderPage");
         currentPage=thisPage;
-        $("#thisPage",self.parent.frames["mainFrame"].document).html(thisPage);
         preAndNextPageBind();
         getOrderPageData(thisPage,pageSize,function (pageReslut) {
+            $("#thisPage",self.parent.frames["mainFrame"].document).html(thisPage);
             total=pageReslut.orderTotal;
+            $("#total",self.parent.frames["mainFrame"].document).html("(进行中 "+total+"单)");
             renderOrderPage(pageReslut);
         });
     }
