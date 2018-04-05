@@ -45,6 +45,7 @@
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>
 <script type="text/javascript">
     console.log("load")
     var shopName="-";
@@ -76,6 +77,7 @@
             getOrderPage(nextPage,pageSize);
         })
     }
+
     var page=1;
     var pageSize=15;
     var total=0;
@@ -121,6 +123,7 @@
                     for (var j=0;j<order.itemInfoList.length;j++){
                         itemNames+=order.itemInfoList[j].skuName+",";
                     }
+                    $("#orderTable", self.parent.frames["mainFrame"].document).append(tr);
                     var tr="<tr><td>"
                         + row.orderId + "</td><td>"
                         + row.orderStartTime + "</td><td>"
@@ -135,20 +138,71 @@
                         + row.invoiceInfo + "</td><td>"
                         + row.invoiceTitle + "</td><td>"
                         + row.invoiceCode + "</td><td>"
-                        + row.venderRemark + "</td><td>"
                         + row.orderRemark + "</td><td>"
+                        + row.venderRemark + "</td><td>"
                         + row.orderState + "</td><td>"
                         + row.orderSource + "</td><td>"
                         + order.itemInfoList.length + "</td></tr>";
-                    $("#orderTable", self.parent.frames["mainFrame"].document).append(tr);
                 }
             }
         })
     }
+
+    var apiToken="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJDUThLTE8wIiwiaWF0IjoxNTIyODk4NjMxLjAsImV4cCI6MTUyMjk4NTAzMC41NDM1Mzg4LCJ1c2VyIjoiYXBpY2FsbGVyIn0.5HuhVJEf6p571R9cE623MJ_37O8O0jOskml8avfTaAk";
+    function randomString(len) {
+        len = len || 32;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return pwd;
+    }
+    function getHeaders() {
+        var token = apiToken;//登录时得到的令牌
+        var key = "10086110";//API提供方设置的密钥，用以生成签名供服务器验证请求
+        var timestamp = Math.round(new Date().getTime() / 1000);//时间戳
+        var nonce = randomString(12);//随机数
+        return {
+            "Authorization": token ? ("Bearer " + token) : null,
+            "timestamp": timestamp,
+            "nonce": nonce,
+            "sign": md5(timestamp + nonce + key)//签名
+        };
+    }
+    function apiCallerInit() {
+        if(apiToken)
+        $.ajax({
+            url: "http://zjtyjj.320.io/api/login",//接口：api/login
+            type: "post",//使用post方法
+            //headers: getHeaders(),
+            data: {
+                username: "apicaller",//用户名(必需)
+                password: "10086110"//密码(必需)
+            }
+        }).done(function (res) {//请求完成后的处理。下文将省略此部分
+            apiToken=res.token;
+        }).fail(function (jqXHR, textStatus, errMsg) {//请求失败后的处理。下文将省略此部分
+            alert(errMsg);
+        });
+    }
+
+    function getModelRecoder(){
+        $.ajax({
+            url: "http://host/api/在线订单/1",//接口：api/{模板ID}/{记录ID}
+            type: "get",
+            headers: getHeaders(),
+            success:function (data) {
+                console.log(JSON.stringify(data));
+            }
+        });
+    }
     $(function () {
         getShopName();
+        getModelRecoder();
     })
-    console.log("loadOk");;
+    console.log("loadOk");
 </script>
 </body>
 </html>
