@@ -188,12 +188,15 @@
         });
     }
 
+    var baseUrl="http://zjtyjj.320.io";
     function getModelRecoder(){
+        console.log("getModelRecoder");
         $.ajax({
-            url: "http://host/api/在线订单/1",//接口：api/{模板ID}/{记录ID}
+            url: baseUrl+"/api/在线订单/1",//接口：api/{模板ID}/{记录ID}
             type: "get",
             headers: getHeaders(),
             success:function (data) {
+                console.log("getModelRecoder success");
                 console.log(JSON.stringify(data));
             }
         });
