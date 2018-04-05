@@ -66,84 +66,93 @@
         $("#total",self.parent.frames["mainFrame"].document).html("(进行中 "+total+"单)");
         $("#prePage",self.parent.frames["mainFrame"].document).unbind();
         $("#prePage",self.parent.frames["mainFrame"].document).bind("click",function () {
-            var prePage=page-1<1?1:page-1;
+            var prePage=currentPage-1<1?1:currentPage-1;
             console.log("prePage"+prePage);
             getOrderPage(prePage,pageSize);
         })
         $("#nextPage",self.parent.frames["mainFrame"].document).unbind();
         $("#nextPage",self.parent.frames["mainFrame"].document).bind("click",function () {
-            var nextPage=page+1>parseInt(total/pageSize)+1?parseInt(total/pageSize)+1:page+1;
+            var nextPage=currentPage+1>parseInt(total/pageSize)+1?parseInt(total/pageSize)+1:currentPage+1;
             console.log("nextPage"+nextPage);
             getOrderPage(nextPage,pageSize);
         })
     }
 
-    var page=1;
+    var currentPage=1;
     var pageSize=15;
     var total=0;
+    function renderOrderPage(pageReslut) {
+        var orderInfoList=pageReslut.orderInfoList;
+        $("#orderTable", self.parent.frames["mainFrame"].document).empty();
+        for (var i = 0; i < orderInfoList.length; i++) {
+            var order = orderInfoList[i];
+            var row=new Object();
+            row.orderId=order.orderId;
+            row.orderStartTime=order.orderStartTime;
+            row.paymentConfirmTime=order.paymentConfirmTime;
+            //var shopName=
+            row.orderTotalPrice=order.orderTotalPrice;
+            row.pin=order.pin;
+            row.consigneeName=order.consigneeInfo.fullname;
+            row.consigneeAddress=order.consigneeInfo.fullAddress;
+            row.consigneeTelephone=order.consigneeInfo.telephone;
+            row.consigneeMobile=order.consigneeInfo.mobile;
+
+            row.invoiceInfo=order.invoiceInfo;
+            row.invoiceTitle=order.invoiceEasyInfo.invoiceTitle;
+            row.invoiceCode=order.invoiceEasyInfo.invoiceCode;
+
+            row.venderRemark=order.venderRemark;
+            row.orderRemark=order.orderRemark;
+            row.orderState=order.orderState;
+            row.orderSource=order.orderSource;
+
+            var itemNames='';
+            for (var j=0;j<order.itemInfoList.length;j++){
+                itemNames+=order.itemInfoList[j].skuName+",";
+            }
+            var tr="<tr><td>"
+                + row.orderId + "</td><td>"
+                + row.orderStartTime + "</td><td>"
+                + row.paymentConfirmTime + "</td><td>"
+                + shopName + "</td><td>"
+                + row.orderTotalPrice + "</td><td>"
+                + row.pin + "</td><td>"
+                + row.consigneeName + "</td><td>"
+                + row.consigneeAddress + "</td><td>"
+                + row.consigneeTelephone + "</td><td>"
+                + row.consigneeMobile + "</td><td>"
+                + row.invoiceInfo + "</td><td>"
+                + row.invoiceTitle + "</td><td>"
+                + row.invoiceCode + "</td><td>"
+                + row.orderRemark + "</td><td>"
+                + row.venderRemark + "</td><td>"
+                + row.orderState + "</td><td>"
+                + row.orderSource + "</td><td>"
+                + order.itemInfoList.length + "</td></tr>";
+            $("#orderTable", self.parent.frames["mainFrame"].document).append(tr);
+        }
+    }
     function getOrderPage(thisPage,pageSize) {
-        $("#page",self.parent.frames["mainFrame"].document).html(thisPage);
         console.log("getOrderPage");
-        var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"'+thisPage+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
+        currentPage=thisPage;
+        total=pageReslut.orderTotal;
+        $("#thisPage",self.parent.frames["mainFrame"].document).html(thisPage);
+        preAndNextPageBind();
+        getOrderPageData(thisPage,pageSize,function (pageReslut) {
+            renderOrderPage(pageReslut);
+        });
+    }
+    function getOrderPageData(page,pageSize,pageReslutHandler) {
+        console.log("getOrderPageData");
+        var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=6a47cb0d-ef17-4a64-8ca0-44128655c6b8&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"'+page+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
         $.ajax({
             url: urlGetOrder,
             success: function (data) {
-                console.log("getOrderPage success");
+                console.log("getOrderPageData success");
                 var pageReslut=JSON.parse(data).jingdong_pop_order_search_responce.searchorderinfo_result;
-                var orderInfoList = pageReslut.orderInfoList;
-                total=pageReslut.orderTotal;
-                page=thisPage;
-                preAndNextPageBind();
-                $("#orderTable", self.parent.frames["mainFrame"].document).empty();
-                for (var i = 0; i < orderInfoList.length; i++) {
-                    var order = orderInfoList[i];
-                    var row=new Object();
-                    row.orderId=order.orderId;
-                    row.orderStartTime=order.orderStartTime;
-                    row.paymentConfirmTime=order.paymentConfirmTime;
-                    //var shopName=
-                    row.orderTotalPrice=order.orderTotalPrice;
-                    row.pin=order.pin;
-                    row.consigneeName=order.consigneeInfo.fullname;
-                    row.consigneeAddress=order.consigneeInfo.fullAddress;
-                    row.consigneeTelephone=order.consigneeInfo.telephone;
-                    row.consigneeMobile=order.consigneeInfo.mobile;
-
-                    row.invoiceInfo=order.invoiceInfo;
-                    row.invoiceTitle=order.invoiceEasyInfo.invoiceTitle;
-                    row.invoiceCode=order.invoiceEasyInfo.invoiceCode;
-
-                    row.venderRemark=order.venderRemark;
-                    row.orderRemark=order.orderRemark;
-                    row.orderState=order.orderState;
-                    row.orderSource=order.orderSource;
-
-
-                    var itemNames='';
-                    for (var j=0;j<order.itemInfoList.length;j++){
-                        itemNames+=order.itemInfoList[j].skuName+",";
-                    }
-                    $("#orderTable", self.parent.frames["mainFrame"].document).append(tr);
-                    var tr="<tr><td>"
-                        + row.orderId + "</td><td>"
-                        + row.orderStartTime + "</td><td>"
-                        + row.paymentConfirmTime + "</td><td>"
-                        + shopName + "</td><td>"
-                        + row.orderTotalPrice + "</td><td>"
-                        + row.pin + "</td><td>"
-                        + row.consigneeName + "</td><td>"
-                        + row.consigneeAddress + "</td><td>"
-                        + row.consigneeTelephone + "</td><td>"
-                        + row.consigneeMobile + "</td><td>"
-                        + row.invoiceInfo + "</td><td>"
-                        + row.invoiceTitle + "</td><td>"
-                        + row.invoiceCode + "</td><td>"
-                        + row.orderRemark + "</td><td>"
-                        + row.venderRemark + "</td><td>"
-                        + row.orderState + "</td><td>"
-                        + row.orderSource + "</td><td>"
-                        + order.itemInfoList.length + "</td></tr>";
-                }
+                //var orderInfoList = pageReslut.orderInfoList;
+                pageReslutHandler(pageReslut);
             }
         })
     }
@@ -189,8 +198,17 @@
     }
 
     var baseUrl="http://zjtyjj.320.io";
-    function getModelRecoder(){
-        console.log("getTemplets");
+    function downloadOrderList(orderListHandler){
+        
+        console.log("downloadOrderList");
+        $.ajax({
+            url: "http://host/api/1",//接口：api/{模板ID}
+            type: "delete",
+            headers: getHeaders(),
+            data: {
+                ids: "7,9,10"//要删除的记录ID序列(必需)
+            }
+        });
         $.ajax({
             url: baseUrl+"/api/templets",//接口：api/templets
             type: "get",
@@ -205,7 +223,7 @@
         });
         console.log("getModelRecoder");
         $.ajax({
-            url: baseUrl+"/api/在线订单/1",//接口：api/{模板ID}/{记录ID}
+            url: baseUrl+"/api/109/1",//接口：api/{模板ID}/{记录ID}
             type: "get",
             headers: getHeaders(),
             success:function (data) {
@@ -216,7 +234,7 @@
     }
     $(function () {
         getShopName();
-        getModelRecoder();
+        saveModelRecoders();
     })
     console.log("loadOk");
 </script>
