@@ -12,7 +12,7 @@
     }</style>
 </head>
 <body>
-<h4>京东订单数据同步<a id="total"></a></h4>
+<h4>京东订单数据同步<a id="shopName"></a><a id="total"></a></h4>
 <table class="table table-striped">
     <thead>
     <tr class="success">
@@ -56,6 +56,7 @@
             url: urlGetShopName,
             success: function (data) {
                 shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
+                $("#shopName",self.parent.frames["mainFrame"].document).html(shopName);
                 getOrderPage(1,pageSize);
             }
         });
@@ -136,10 +137,10 @@
     function getOrderPage(thisPage,pageSize) {
         console.log("getOrderPage");
         currentPage=thisPage;
-        total=pageReslut.orderTotal;
         $("#thisPage",self.parent.frames["mainFrame"].document).html(thisPage);
         preAndNextPageBind();
         getOrderPageData(thisPage,pageSize,function (pageReslut) {
+            total=pageReslut.orderTotal;
             renderOrderPage(pageReslut);
         });
     }
