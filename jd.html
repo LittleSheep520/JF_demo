@@ -190,6 +190,19 @@
 
     var baseUrl="http://zjtyjj.320.io";
     function getModelRecoder(){
+        console.log("getTemplets");
+        $.ajax({
+            url: baseUrl+"/api/templets",//接口：api/templets
+            type: "get",
+            headers: getHeaders(),
+            data: {
+                full: false//是否获取完整信息(可选)。默认值：false
+            },
+            success:function (data) {
+                console.log("getTemplets success");
+                console.log(JSON.stringify(data));
+            }
+        });
         console.log("getModelRecoder");
         $.ajax({
             url: baseUrl+"/api/在线订单/1",//接口：api/{模板ID}/{记录ID}
