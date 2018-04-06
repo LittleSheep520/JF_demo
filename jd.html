@@ -12,7 +12,11 @@
     }</style>
 </head>
 <body>
-<h4>京东订单数据同步<a id="shopName"></a><a id="total"></a></h4>
+<h4>
+    京东订单数据同步
+    <span><a id="shopName"></a><button id="shop1ImportBtn" onclick="importOrderList()">同步</button><a id="total"></a></span>
+
+</h4>
 <table class="table table-striped">
     <thead>
     <tr class="success">
@@ -157,14 +161,14 @@
         $.ajax({
             url: urlGetOrder,
             success: function (data) {
-                console.log("getOrderPageData success");
                 var pageReslut=JSON.parse(data).jingdong_pop_order_search_responce.searchorderinfo_result;
+                console.log("getOrderPageData success，本页数据条数："+pageReslut.orderInfoList.length);
                 //var orderInfoList = pageReslut.orderInfoList;
                 pageReslutHandler(pageReslut);
             }
         })
     }
-
+    var baseUrl="http://zjtyjj.320.io";
     var apiToken="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJDUThLTE8wIiwiaWF0IjoxNTIyODk4NjMxLjAsImV4cCI6MTUyMjk4NTAzMC41NDM1Mzg4LCJ1c2VyIjoiYXBpY2FsbGVyIn0.5HuhVJEf6p571R9cE623MJ_37O8O0jOskml8avfTaAk";
     function randomString(len) {
         len = len || 32;
@@ -208,48 +212,83 @@
     function getOrderList(orderListHandler){
         var pageIndex=1;
         var pageSize=50;
-        var total;
         var orderlist=[];
         getOrderPageData(1,1,function (pageReslut) {
-            total=pageReslut.pageReslut.orderTotal;
+            var total=pageReslut.orderTotal;
+            console.log("getOrderList 探测到总数："+total+",分批数"+(1+parseInt(total/pageSize)));
+            for(var i=1;i<parseInt(total/pageSize)+2;i++){
+                getOrderPageData(i,pageSize,function (pageReslut) {
+                    orderlist=orderlist.concat(pageReslut.orderInfoList);
+                    console.log("getOrderList 抓取批次："+i+",抓到数据条数："+pageReslut.orderInfoList.length+"目前总数："+orderlist.length);
+                    if(orderlist.length==total){
+                        orderListHandler(orderlist);
+                    }
+                })
+            }
         });
-        for(var i=1;i<parseInt(total/pageSize)+2;i++){
-            getOrderPageData(i,pageSize,function (pageReslut) {
-                orderlist.push(pageReslut.orderInfoList);
-                if(orderlist.length==total){
-                    //console.log("getOrderList抓取完毕"+total);
-                    orderListHandler(orderlist);
-                }
-            })
-        }
     }
-    var baseUrl="http://zjtyjj.320.io";
+    
+    function getOrderListFromDb(filter,orderListHandler) {
+        console.log("getOrderListFromDb");
+        $.ajax({
+            url: "http://zjtyjj.320.io/api/109",//接口：api/{模板ID}
+            type: "get",
+            headers: getHeaders(),
+            data: {
+                filter: filter,//过滤器名称(可选)。指定了filter，将忽略search和key参数
+                page: 0,//页码(可选)。从0起计，默认值：0
+                pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
+            },
+            success:function (data) {
+                console.log(JSON.stringify(data))
+            }
+        });
+    }
     function importOrderList(){
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
+            getOrderListFromDb(function (orderListFromDb) {
+                console.log("getOrderListFromDb抓取完毕"+orderListFromDb.length);
+            })
+            var ids=[];
+            var orders=[];
             console.log("getOrderList抓取完毕"+orderList.length);
+            for(var i=0;i<orderList.length;i++){
+                ids.push(orderList[i].)
+            }
         })
-        return;
+
+        $.ajax({
+            url: "http://zjtyjj.320.io/api/109",//接口：api/{模板ID}
+            type: "get",
+            headers: getHeaders(),
+            data: {
+                filter: "NotFinished",//过滤器名称(可选)。指定了filter，将忽略search和key参数
+                page: 0,//页码(可选)。从0起计，默认值：0
+                pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
+            }
+        });
+
         $.ajax({
             url: "http://host/api/1",//接口：api/{模板ID}
             type: "delete",
             headers: getHeaders(),
             data: {
-                ids: "7,9,10"//要删除的记录ID序列(必需)
+                ids: "1,2"//要删除的记录ID序列(必需)
             }
         });
+
+        //建立数据对象。要添加多条记录，请使用对象数组：[{...}, {...}, {...}]
+        var data = {
+        {"1269":"2","1270":"2018-03-28 14:09:44","1271":"2018-04-05 14:09:46","1272":"阿三大多4","1273":"32","1274":"adsd","1275":"阿斯顿","1276":"萨达","1277":"4968489","1278":"12365","1279":"0","1280":"","1281":"","1282":"","1283":"","1284":"","1293":"","1295":"","1296":"","1297":""}
+        };
         $.ajax({
-            url: baseUrl+"/api/templets",//接口：api/templets
-            type: "get",
+            url: "http://host/api/4",//接口：api/{模板ID}
+            type: "post",//使用post方法
             headers: getHeaders(),
-            data: {
-                full: false//是否获取完整信息(可选)。默认值：false
-            },
-            success:function (data) {
-                console.log("getTemplets success");
-                console.log(JSON.stringify(data));
-            }
+            data: JSON.stringify(data)//将数据对象转换为字符串
         });
+
         console.log("getModelRecoder");
         $.ajax({
             url: baseUrl+"/api/109/1",//接口：api/{模板ID}/{记录ID}
@@ -263,7 +302,7 @@
     }
     $(function () {
         loadShop(shopConfig);
-        importOrderList();
+        //importOrderList();
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
