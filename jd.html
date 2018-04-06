@@ -236,7 +236,7 @@
             type: "get",
             headers: getHeaders(),
             data: {
-                filter: AllOrder,//过滤器名称(可选)。指定了filter，将忽略search和key参数
+                filter: filter,//过滤器名称(可选)。指定了filter，将忽略search和key参数
                 page: 0,//页码(可选)。从0起计，默认值：0
                 pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
             },
@@ -250,7 +250,7 @@
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
             console.log("getOrderList抓取完毕"+orderList.length);
-            getOrderListFromDb(function (orderListFromDb) {
+            getOrderListFromDb("AllOrder",function (orderListFromDb) {
                 console.log("getOrderListFromDb抓取完毕"+orderListFromDb.length);
                 var ids=[];
                 var orders=[];
