@@ -49,6 +49,7 @@
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script type="text/javascript">
     //数组添方法
     Array.prototype.myfind= function(marchFun)
@@ -398,7 +399,8 @@
         })
     }
     var baseUrl="http://zjtyjj.320.io";
-    var apiToken="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJDUThLTE8wIiwiaWF0IjoxNTIyODk4NjMxLjAsImV4cCI6MTUyMjk4NTAzMC41NDM1Mzg4LCJ1c2VyIjoiYXBpY2FsbGVyIn0.5HuhVJEf6p571R9cE623MJ_37O8O0jOskml8avfTaAk";
+    //注意此token失效服务器直接响应403,服务器设置了一天过期
+    var apiToken=$.cookie("token");
     function getHeaders() {
         var token = apiToken;//登录时得到的令牌
         var key = "10086110";//API提供方设置的密钥，用以生成签名供服务器验证请求
@@ -411,10 +413,10 @@
             "sign": md5(timestamp + nonce + key)//签名
         };
     }
+    //TODO 403时调用，或每次调用
     function apiCallerInit() {
-        if(apiToken)
         $.ajax({
-            url: "http://zjtyjj.320.io/api/login",//接口：api/login
+            url: baseUrl+"/api/login",//接口：api/login
             type: "post",//使用post方法
             //headers: getHeaders(),
             data: {
@@ -423,6 +425,7 @@
             }
         }).done(function (res) {//请求完成后的处理。下文将省略此部分
             apiToken=res.token;
+            $.cookie("token", res.token, { expires: 30 });
         }).fail(function (jqXHR, textStatus, errMsg) {//请求失败后的处理。下文将省略此部分
             alert(errMsg);
         });
@@ -462,6 +465,14 @@
             success:function (data) {
                 console.log("getOrderListFromDbByFilter success");
                 console.log(JSON.stringify(data));
+            },
+            error: function(xhr,status,error){
+                if(status==403){
+                    alert("apicaller登陆过期，已尝试自动重新登陆。请重新进行你的操作。");
+                    apiCallerInit();
+                }else{
+                    alert("JF apicall 出错");
+                }
             }
         });
     }
@@ -469,6 +480,11 @@
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
             console.log("getOrderList抓取完毕"+orderList.length);
+            //新订单列表转化为数据库格式
+            orderList.map(function (value) {
+                var orderEntity=new Object();
+                orderEntity.
+            })
             var orderLi=orderList.myfind(function (e) {
                 return e.orderId=="73852482724";
             });
@@ -477,6 +493,7 @@
                 console.log("getOrderListFromDbByFilter抓取完毕"+orderListFromDb.length);
                 var ids=[];
                 var orders=[];
+                orderListFromDb
             })
         })
         return;
@@ -527,6 +544,7 @@
     }
     $(function () {
         loadShop(shopConfig);
+        apiCallerInit();
         importOrderListBtnBind();
     })
     function jdResponseCheck(data){
