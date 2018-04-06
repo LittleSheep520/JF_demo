@@ -479,7 +479,10 @@
             //orderEntity.orderState=order.orderState;
             //orderEntity.orderSource=order.orderSource;
         },
-        appendDeliveryInfoToOrderTemplateEntity:function (orderEntity,orderEntityWithDeliverInfo) {
+        appendDeliveryInfoToOrderTemplateEntity:function (orderEntity,orderEntityListWithDeliverInfo) {
+            var orderEntityWithDeliverInfo=orderEntityListWithDeliverInfo.myfind(function (e) {
+                return e[1269]=orderEntity[1269];
+            });
             orderEntity[1295]=orderEntityWithDeliverInfo[1295];
             orderEntity[1296]=orderEntityWithDeliverInfo[1296];
             orderEntity[1297]=orderEntityWithDeliverInfo[1297];
@@ -520,11 +523,13 @@
             },
             success:function (result) {
                 console.log("getOrderListFromTemplateByFilter success");
-                console.log("getOrderListFromTemplateByFilter.data:"+JSON.parse(result).data);
-                var data=JSON.parse(result).data;
-                //var orderEntityList=data.
-                //TODO
-                orderListHandler(data);
+                console.log("getOrderListFromTemplateByFilter.data:"+result.data);
+                var data=result.data;
+                var orderEntityList=data.map(function (jfTemplateDataElement) {
+                    var orderEntity=jfTemplateDataElement.fields;
+                    orderEntity.id=jfTemplateDataElement.id;
+                });
+                orderListHandler(orderEntityList);
             },
             error: function(xhr,status,error){
                 if(status==403){
@@ -544,19 +549,20 @@
                 return e.orderId=="73852482724";
             });
             console.log(orderLi);
-            getOrderListFromTemplateByFilter("AllOrder",function (orderEnttyListFromDb) {
-                console.log("getOrderListFromTemplateByFilter抓取完毕"+orderEnttyListFromDb.length);
+            getOrderListFromTemplateByFilter("AllOrder",function (orderEntityList) {
+                console.log("getOrderListFromTemplateByFilter抓取完毕"+orderEntityList.length);
                 var ids=[];
                 var orders=[];
                 //JD订单列表转化为JF模板格式
-                var orderEntityList=orderList.map(function (order) {
+                var orderEntityListConvertFromJDOrderList=orderList.map(function (order) {
                     return templateDefinition.convertToOrderTemplateEntity(order);
                 });
-                console.log("JDOrderList to OrderEntityList:"+JSON.stringify(orderEntityList));
+                console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
                 //整合JF订单数据与jd订单数据（出库信息）
-                //orderEntityList.map(function (orderEntity) {
-                    //appendDeliveryInfoToOrderTemplateEntity(orderEntity,)
-                //});
+                orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
+                    return templateDefinition.appendDeliveryInfoToOrderTemplateEntity(orderEntity,orderEntityList);
+                });
+                console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
                 //保存到模板中
             })
         })
