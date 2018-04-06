@@ -457,7 +457,7 @@
             "1297":"快递单号变更",
             "1299":"3"
         },
-        convertToOrderTemplateEntity:function (jdOrder){
+        convertToOrderTemplateEntity:function (order){
             var orderEntity=new Object();
             orderEntity[1269]=order.orderId;
             orderEntity[1270]=order.orderStartTime;
@@ -523,7 +523,6 @@
             },
             success:function (result) {
                 console.log("getOrderListFromTemplateByFilter success");
-                console.log("getOrderListFromTemplateByFilter.data:"+result.data);
                 var data=result.data;
                 var orderEntityList=data.map(function (jfTemplateDataElement) {
                     var orderEntity=jfTemplateDataElement.fields;
@@ -550,7 +549,8 @@
             });
             console.log(orderLi);
             getOrderListFromTemplateByFilter("AllOrder",function (orderEntityList) {
-                console.log("getOrderListFromTemplateByFilter抓取完毕"+orderEntityList.length);
+                console.log("getOrderListFromTemplateByFilter抓取完毕,size: "+orderEntityList.length);
+                console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
                 var ids=[];
                 var orders=[];
                 //JD订单列表转化为JF模板格式
@@ -559,11 +559,17 @@
                 });
                 console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
                 //整合JF订单数据与jd订单数据（出库信息）
-                orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
+                var fullOrderEntityList =orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
                     return templateDefinition.appendDeliveryInfoToOrderTemplateEntity(orderEntity,orderEntityList);
                 });
-                console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
-                //保存到模板中
+                console.log("fullOrderEntityList:"+JSON.stringify(fullOrderEntityList));
+                ///保存到模板中
+                $.ajax({
+                    url: baseUrl+"api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
+                    type: "post",//使用post方法
+                    headers: getHeaders(),
+                    data: JSON.stringify(fullOrderEntityList)//将数据对象转换为字符串
+                });
             })
         })
         return;
