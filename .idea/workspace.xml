@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7620fcb8-7afa-4be9-848f-db856ebd066c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/jd.html" afterPath="$PROJECT_DIR$/jd.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,8 +41,8 @@
       <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="51" column="65" lean-forward="true" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="65" />
+            <state relative-caret-position="174">
+              <caret line="51" column="76" lean-forward="true" selection-start-line="51" selection-start-column="76" selection-end-line="51" selection-end-column="76" />
               <folding>
                 <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#1132#1139#1" expanded="true" />
@@ -53,7 +52,7 @@
                 <element signature="e#3371#5702#0" expanded="false" />
                 <element signature="e#6255#7306#0" expanded="false" />
                 <element signature="e#7587#7929#0" expanded="false" />
-                <element signature="e#8414#8921#0" expanded="false" />
+                <element signature="e#8416#8923#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -83,6 +82,7 @@
       <find>importOrderList</find>
       <find>shop1ImportBtn</find>
       <find>getOrderListFromDb</find>
+      <find>md5</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -177,12 +177,12 @@
       <workItem from="1522845602551" duration="8999000" />
       <workItem from="1522897514642" duration="14753000" />
       <workItem from="1522931116892" duration="599000" />
-      <workItem from="1522989868493" duration="4221000" />
+      <workItem from="1522989868493" duration="4320000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48966000" />
+    <option name="totallyTimeSpent" value="49065000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -249,7 +249,7 @@
             <element signature="e#3371#5702#0" expanded="false" />
             <element signature="e#6255#7306#0" expanded="false" />
             <element signature="e#7587#7929#0" expanded="false" />
-            <element signature="e#8414#8921#0" expanded="false" />
+            <element signature="e#8416#8923#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -285,7 +285,7 @@
             <element signature="e#3371#5702#0" expanded="false" />
             <element signature="e#6255#7306#0" expanded="false" />
             <element signature="e#7587#7929#0" expanded="false" />
-            <element signature="e#8414#8921#0" expanded="false" />
+            <element signature="e#8416#8923#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -321,7 +321,7 @@
             <element signature="e#3371#5702#0" expanded="false" />
             <element signature="e#6255#7306#0" expanded="false" />
             <element signature="e#7587#7929#0" expanded="false" />
-            <element signature="e#8414#8921#0" expanded="false" />
+            <element signature="e#8416#8923#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -357,7 +357,7 @@
             <element signature="e#3371#5702#0" expanded="false" />
             <element signature="e#6255#7306#0" expanded="false" />
             <element signature="e#7587#7929#0" expanded="false" />
-            <element signature="e#8414#8921#0" expanded="false" />
+            <element signature="e#8416#8923#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -417,8 +417,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="51" column="65" lean-forward="true" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="65" />
+        <state relative-caret-position="174">
+          <caret line="51" column="76" lean-forward="true" selection-start-line="51" selection-start-column="76" selection-end-line="51" selection-end-column="76" />
           <folding>
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1132#1139#1" expanded="true" />
@@ -428,7 +428,7 @@
             <element signature="e#3371#5702#0" expanded="false" />
             <element signature="e#6255#7306#0" expanded="false" />
             <element signature="e#7587#7929#0" expanded="false" />
-            <element signature="e#8414#8921#0" expanded="false" />
+            <element signature="e#8416#8923#0" expanded="false" />
           </folding>
         </state>
       </provider>
