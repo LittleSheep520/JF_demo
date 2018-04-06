@@ -14,7 +14,7 @@
 <body>
 <h4>
     京东订单数据同步
-    <span><a id="shopName"></a><button id="shop1ImportBtn" onclick="importOrderList()">同步</button><a id="total"></a></span>
+    <span><a id="shopName"></a><button id="shop1ImportBtn">同步</button><a id="total"></a></span>
 
 </h4>
 <table class="table table-striped">
@@ -217,9 +217,10 @@
             var total=pageReslut.orderTotal;
             console.log("getOrderList 探测到总数："+total+",分批数"+(1+parseInt(total/pageSize)));
             for(var i=1;i<parseInt(total/pageSize)+2;i++){
+                console.log("getOrderList 抓取批次："+i+"抓取size："+pageSize);
                 getOrderPageData(i,pageSize,function (pageReslut) {
                     orderlist=orderlist.concat(pageReslut.orderInfoList);
-                    console.log("getOrderList 抓取批次："+i+",抓到数据条数："+pageReslut.orderInfoList.length+"目前总数："+orderlist.length);
+                    console.log("getOrderList 抓到数据条数："+pageReslut.orderInfoList.length+"目前总数："+orderlist.length);
                     if(orderlist.length==total){
                         orderListHandler(orderlist);
                     }
@@ -231,16 +232,17 @@
     function getOrderListFromDb(filter,orderListHandler) {
         console.log("getOrderListFromDb");
         $.ajax({
-            url: "http://zjtyjj.320.io/api/109",//接口：api/{模板ID}
+            url: baseUrl+"/api/109",//接口：api/{模板ID}
             type: "get",
             headers: getHeaders(),
             data: {
-                filter: filter,//过滤器名称(可选)。指定了filter，将忽略search和key参数
+                filter: AllOrder,//过滤器名称(可选)。指定了filter，将忽略search和key参数
                 page: 0,//页码(可选)。从0起计，默认值：0
                 pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
             },
             success:function (data) {
-                console.log(JSON.stringify(data))
+                console.log("getOrderListFromDb success");
+                console.log(JSON.stringify(data));
             }
         });
     }
@@ -298,9 +300,14 @@
             }
         });
     }
+    function importOrderListBtnBind(){
+        $("#shop1ImportBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
+            importOrderList();
+        })
+    }
     $(function () {
         loadShop(shopConfig);
-        //importOrderList();
+        importOrderListBtnBind();
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
