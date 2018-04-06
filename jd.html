@@ -478,6 +478,7 @@
             //orderEntity.orderRemark=order.orderRemark;
             //orderEntity.orderState=order.orderState;
             //orderEntity.orderSource=order.orderSource;
+            return orderEntity;
         },
         appendDeliveryInfoToOrderTemplateEntity:function (orderEntity,orderEntityListWithDeliverInfo) {
             var orderEntityWithDeliverInfo=orderEntityListWithDeliverInfo.myfind(function (e) {
@@ -487,6 +488,7 @@
             orderEntity[1296]=orderEntityWithDeliverInfo[1296];
             orderEntity[1297]=orderEntityWithDeliverInfo[1297];
             orderEntity[1299]=orderEntityWithDeliverInfo[1299];
+            return orderEntity;
         }
 
     }
@@ -527,6 +529,7 @@
                 var orderEntityList=data.map(function (jfTemplateDataElement) {
                     var orderEntity=jfTemplateDataElement.fields;
                     orderEntity.id=jfTemplateDataElement.id;
+                    return orderEntity;
                 });
                 orderListHandler(orderEntityList);
             },
