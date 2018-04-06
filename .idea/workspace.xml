@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7620fcb8-7afa-4be9-848f-db856ebd066c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/jd.html" afterPath="$PROJECT_DIR$/jd.html" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,14 +41,12 @@
       <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="256" column="17" lean-forward="false" selection-start-line="256" selection-start-column="17" selection-end-line="256" selection-end-column="17" />
+            <state relative-caret-position="109">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="58" selection-end-column="5" />
               <folding>
                 <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#1160#1167#1" expanded="true" />
                 <element signature="e#1267#1274#1" expanded="true" />
-                <element signature="e#1600#1735#0" expanded="false" />
-                <element signature="e#1820#2554#0" expanded="false" />
                 <element signature="e#2590#3291#0" expanded="false" />
                 <element signature="e#3395#5726#0" expanded="false" />
                 <element signature="e#5772#6215#0" expanded="false" />
@@ -165,12 +163,12 @@
       <workItem from="1522845602551" duration="8999000" />
       <workItem from="1522897514642" duration="14753000" />
       <workItem from="1522931116892" duration="599000" />
-      <workItem from="1522989868493" duration="1812000" />
+      <workItem from="1522989868493" duration="2109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46557000" />
+    <option name="totallyTimeSpent" value="46854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -232,8 +230,6 @@
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1160#1167#1" expanded="true" />
             <element signature="e#1267#1274#1" expanded="true" />
-            <element signature="e#1600#1735#0" expanded="false" />
-            <element signature="e#1820#2554#0" expanded="false" />
             <element signature="e#2590#3291#0" expanded="false" />
             <element signature="e#3395#5726#0" expanded="false" />
             <element signature="e#5772#6215#0" expanded="false" />
@@ -269,8 +265,6 @@
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1160#1167#1" expanded="true" />
             <element signature="e#1267#1274#1" expanded="true" />
-            <element signature="e#1600#1735#0" expanded="false" />
-            <element signature="e#1820#2554#0" expanded="false" />
             <element signature="e#2590#3291#0" expanded="false" />
             <element signature="e#3395#5726#0" expanded="false" />
             <element signature="e#5772#6215#0" expanded="false" />
@@ -306,8 +300,6 @@
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1160#1167#1" expanded="true" />
             <element signature="e#1267#1274#1" expanded="true" />
-            <element signature="e#1600#1735#0" expanded="false" />
-            <element signature="e#1820#2554#0" expanded="false" />
             <element signature="e#2590#3291#0" expanded="false" />
             <element signature="e#3395#5726#0" expanded="false" />
             <element signature="e#5772#6215#0" expanded="false" />
@@ -343,8 +335,6 @@
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1160#1167#1" expanded="true" />
             <element signature="e#1267#1274#1" expanded="true" />
-            <element signature="e#1600#1735#0" expanded="false" />
-            <element signature="e#1820#2554#0" expanded="false" />
             <element signature="e#2590#3291#0" expanded="false" />
             <element signature="e#3395#5726#0" expanded="false" />
             <element signature="e#5772#6215#0" expanded="false" />
@@ -401,14 +391,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="256" column="17" lean-forward="false" selection-start-line="256" selection-start-column="17" selection-end-line="256" selection-end-column="17" />
+        <state relative-caret-position="109">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="58" selection-end-column="5" />
           <folding>
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1160#1167#1" expanded="true" />
             <element signature="e#1267#1274#1" expanded="true" />
-            <element signature="e#1600#1735#0" expanded="false" />
-            <element signature="e#1820#2554#0" expanded="false" />
             <element signature="e#2590#3291#0" expanded="false" />
             <element signature="e#3395#5726#0" expanded="false" />
             <element signature="e#5772#6215#0" expanded="false" />
