@@ -50,6 +50,18 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    //数组添方法
+    Array.prototype.myfind= function(marchFun)
+    {
+        for (var i = 0; i < this.length; i++)
+        {
+            if (marchFun(this[i]))
+            {
+                return this[i];
+            }
+        }
+        return null;
+    };
     //随机字符串
     function randomString(len) {
         len = len || 32;
@@ -396,7 +408,7 @@
             "Authorization": token ? ("Bearer " + token) : null,
             "timestamp": timestamp,
             "nonce": nonce,
-            "sign": $.md5(timestamp + nonce + key)//签名
+            "sign": md5(timestamp + nonce + key)//签名
         };
     }
     function apiCallerInit() {
@@ -436,8 +448,8 @@
         });
     }
     
-    function getOrderListFromDb(filter,orderListHandler) {
-        console.log("getOrderListFromDb");
+    function getOrderListFromDbByFilter(filter,orderListHandler) {
+        console.log("getOrderListFromDbByFilter");
         $.ajax({
             url: baseUrl+"/api/109",//接口：api/{模板ID}
             type: "get",
@@ -448,7 +460,7 @@
                 pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
             },
             success:function (data) {
-                console.log("getOrderListFromDb success");
+                console.log("getOrderListFromDbByFilter success");
                 console.log(JSON.stringify(data));
             }
         });
@@ -457,13 +469,14 @@
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
             console.log("getOrderList抓取完毕"+orderList.length);
-            getOrderListFromDb("AllOrder",function (orderListFromDb) {
-                console.log("getOrderListFromDb抓取完毕"+orderListFromDb.length);
+            var orderLi=orderList.myfind(function (e) {
+                return e.orderId=="73852482724";
+            });
+            console.log(orderLi);
+            getOrderListFromDbByFilter("AllOrder",function (orderListFromDb) {
+                console.log("getOrderListFromDbByFilter抓取完毕"+orderListFromDb.length);
                 var ids=[];
                 var orders=[];
-                for(var i=0;i<orderList.length;i++){
-                    //ids.push(orderList[i].)
-                }
             })
         })
         return;
