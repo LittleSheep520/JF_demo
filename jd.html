@@ -566,13 +566,36 @@
                     return templateDefinition.appendDeliveryInfoToOrderTemplateEntity(orderEntity,orderEntityList);
                 });
                 console.log("fullOrderEntityList:"+JSON.stringify(fullOrderEntityList));
-                ///保存到模板中
+
+                var ids=orderEntityList.map(function (e) {
+                    //保留第一条
+                    if(e.id==1||e.id==2){
+                        return 0;
+                    }
+                    return e.id;
+                })
+                //删除模板所有订单
                 $.ajax({
-                    url: baseUrl+"api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                    type: "post",//使用post方法
+                    url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
+                    type: "delete",
                     headers: getHeaders(),
-                    data: JSON.stringify(fullOrderEntityList)//将数据对象转换为字符串
+                    data: {
+                        ids: ids//要删除的记录ID序列(必需)
+                    },
+                    success:function (rs) {
+                        //保存整合数据到模板中
+                        $.ajax({
+                            url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
+                            type: "post",//使用post方法
+                            headers: getHeaders(),
+                            data: JSON.stringify(fullOrderEntityList),//将数据对象转换为字符串
+                            success:function (result) {
+                                alert("同步成功! 交易中订单条数: "+result.data.id.length);
+                            }
+                        });
+                    }
                 });
+
             })
         })
         return;
