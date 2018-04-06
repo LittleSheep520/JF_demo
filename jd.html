@@ -49,7 +49,7 @@
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 <script type="text/javascript">
 
     console.log("load");
@@ -189,7 +189,7 @@
             "Authorization": token ? ("Bearer " + token) : null,
             "timestamp": timestamp,
             "nonce": nonce,
-            "sign": md5(timestamp + nonce + key)//签名
+            "sign": $.md5(timestamp + nonce + key)//签名
         };
     }
     function apiCallerInit() {
