@@ -247,15 +247,15 @@
     function importOrderList(){
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
+            console.log("getOrderList抓取完毕"+orderList.length);
             getOrderListFromDb(function (orderListFromDb) {
                 console.log("getOrderListFromDb抓取完毕"+orderListFromDb.length);
+                var ids=[];
+                var orders=[];
+                for(var i=0;i<orderList.length;i++){
+                    //ids.push(orderList[i].)
+                }
             })
-            var ids=[];
-            var orders=[];
-            console.log("getOrderList抓取完毕"+orderList.length);
-            for(var i=0;i<orderList.length;i++){
-                ids.push(orderList[i].)
-            }
         })
 
         $.ajax({
