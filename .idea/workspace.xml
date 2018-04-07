@@ -42,13 +42,14 @@
       <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="669" column="30" lean-forward="false" selection-start-line="669" selection-start-column="30" selection-end-line="669" selection-end-column="30" />
+            <state relative-caret-position="368">
+              <caret line="675" column="33" lean-forward="false" selection-start-line="675" selection-start-column="33" selection-end-line="675" selection-end-column="33" />
               <folding>
                 <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#1132#1139#1" expanded="true" />
                 <element signature="e#1239#1246#1" expanded="true" />
                 <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#12127#12861#0" expanded="false" />
                 <element signature="e#12897#13598#0" expanded="false" />
                 <element signature="e#13702#16033#0" expanded="false" />
                 <element signature="e#16079#16522#0" expanded="false" />
@@ -176,12 +177,12 @@
       <workItem from="1522931116892" duration="599000" />
       <workItem from="1522989868493" duration="20170000" />
       <workItem from="1523023952977" duration="188000" />
-      <workItem from="1523032555184" duration="4300000" />
+      <workItem from="1523032555184" duration="4642000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69403000" />
+    <option name="totallyTimeSpent" value="69745000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -245,6 +246,7 @@
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />
@@ -281,6 +283,7 @@
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />
@@ -316,6 +319,7 @@
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />
@@ -351,6 +355,7 @@
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />
@@ -386,6 +391,7 @@
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />
@@ -421,6 +427,7 @@
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />
@@ -477,13 +484,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="669" column="30" lean-forward="false" selection-start-line="669" selection-start-column="30" selection-end-line="669" selection-end-column="30" />
+        <state relative-caret-position="368">
+          <caret line="675" column="33" lean-forward="false" selection-start-line="675" selection-start-column="33" selection-end-line="675" selection-end-column="33" />
           <folding>
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1132#1139#1" expanded="true" />
             <element signature="e#1239#1246#1" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#12127#12861#0" expanded="false" />
             <element signature="e#12897#13598#0" expanded="false" />
             <element signature="e#13702#16033#0" expanded="false" />
             <element signature="e#16079#16522#0" expanded="false" />

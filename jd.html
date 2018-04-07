@@ -645,7 +645,7 @@
         console.log("getModelRecoder");
         $.ajax({
             url: baseUrl+"/api/109/1",//接口：api/{模板ID}/{记录ID}
-            type: "get",
+            type: "delete",
             headers: getHeaders(),
             success:function (data) {
                 console.log("getModelRecoder success");
