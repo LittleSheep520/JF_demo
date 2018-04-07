@@ -389,7 +389,7 @@
     }
     function getOrderPageData(page,pageSize,pageReslutHandler) {
         console.log("getOrderPageData");
-        var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token+'&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource","page":"'+page+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
+        var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token+'&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource,modified","page":"'+page+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
         $.ajax({
             url: urlGetOrder,
             success: function (data) {
@@ -433,14 +433,14 @@
         });
     }
     var templateDefinition={
-        orderTemplateId:109,
-        orderTemplateFields:{
-            "1269":"订单编号",
-            "1270":"2018-03-28 14:09:44",
-            "1271":"2018-04-05 14:09:46",
-            "1272":"下单平台",
-            "1273":"500",
-            "1274":"pin",
+        orderTemplateId:112,
+        orderTemplateFieldKeys:{
+            "orderId":"订单编号",
+            "orderStartTime":"2018-03-28 14:09:44",
+            "paymentConfirmTime":"2018-04-05 14:09:46",
+            "shopName":"下单平台",
+            "orderTotalPrice":"500",
+            "pin":"pin",
             "1275":"收获人",
             "1276":"收获地址",
             "1277":"023676445",
@@ -465,6 +465,7 @@
 
             //orderEntity.orderTotalPrice=order.orderTotalPrice;
             orderEntity[1274]=order.pin;
+            orderEntity[1274]=order.modified;
             //orderEntity.consigneeName=order.consigneeInfo.fullname;
             //orderEntity.consigneeAddress=order.consigneeInfo.fullAddress;
             //orderEntity.consigneeTelephone=order.consigneeInfo.telephone;
@@ -515,7 +516,7 @@
     function getOrderListFromTemplateByFilter(filter,orderListHandler) {
         console.log("getOrderListFromTemplateByFilter");
         $.ajax({
-            url: baseUrl+"/api/109",//接口：api/{模板ID}
+            url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
             type: "get",
             headers: getHeaders(),
             data: {
@@ -561,6 +562,19 @@
                     return templateDefinition.convertToOrderTemplateEntity(order);
                 });
                 console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
+
+                //找出jd有改动的条目
+                var orderEntityModifiedList=[];
+                orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
+                    var orderEntityModified =orderEntityList.myfind(function (jfOrderEntity) {
+                        return jfOrderEntity.orderId==jdOrderEntity.id&&jfOrderEntity.modified!=jfOrderEntity.modified;
+                    });
+                    if(null!=orderEntityModified){
+                        jdOrderEntity.id=orderEntityModified.id;
+                        jdOrderEntity.
+                        orderEntityModifiedList.push(jdOrderEntity)
+                    }
+                })
                 //整合JF订单数据与jd订单数据（出库信息）
                 var fullOrderEntityList =orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
                     return templateDefinition.appendDeliveryInfoToOrderTemplateEntity(orderEntity,orderEntityList);
@@ -580,7 +594,7 @@
                     type: "delete",
                     headers: getHeaders(),
                     data: {
-                        ids: ids//要删除的记录ID序列(必需)
+                        ids: JSON.stringify(ids)//要删除的记录ID序列(必需)
                     },
                     success:function (rs) {
                         //保存整合数据到模板中
@@ -648,6 +662,14 @@
         loadShop(shopConfig);
         apiCallerInit();
         importOrderListBtnBind();
+        $.ajax({
+            url: baseUrl+"/api/109/3",//接口：api/{模板ID}
+            type: "get",
+            headers: getHeaders(),
+            success:function (data) {
+                alert("删除成功！！！");
+            }
+        });
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
@@ -659,6 +681,7 @@
         }
     };
     console.log("loadOk");
+
 </script>
 </body>
 </html>
