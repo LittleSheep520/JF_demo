@@ -664,16 +664,16 @@
         console.log("reday exc delete");
         $.ajax({
             url: baseUrl+"/api/109/3",//接口：api/{模板ID}
-            type: "get",
+            type: "delete",
             headers: getHeaders(),
             success:function (data) {
                 alert("删除成功！！！");
             }
         });
         console.log("reday exc loadShop");
-        loadShop(shopConfig);
+        //loadShop(shopConfig);
         console.log("reday exc importOrderListBtnBind");
-        importOrderListBtnBind();
+        //importOrderListBtnBind();
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
