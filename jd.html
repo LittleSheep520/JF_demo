@@ -585,7 +585,7 @@
                 var orderEntityNewList=[];
                 orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
                     var orderEntityExist =orderEntityList.myfind(function (jfOrderEntity) {
-                        return jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]==jdOrderEntity.id;
+                        return jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]==jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
                     });
                     if(null==orderEntityExist){
                         orderEntityNewList.push(jdOrderEntity);
