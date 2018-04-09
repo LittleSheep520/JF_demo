@@ -526,10 +526,10 @@
             data: {
                 filter: filter,//过滤器名称(可选)。指定了filter，将忽略search和key参数
                 page: 0,//页码(可选)。从0起计，默认值：0
-                pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
+                pagesize: 500//每页数量(可选)。默认值：表格视图默认版式的每页数量
             },
             success:function (result) {
-                console.log("getOrderListFromTemplateByFilter success");
+                console.log("getOrderListFromTemplateByFilter success"+ result.data.length);
                 var data=result.data;
                 var orderEntityList=data.map(function (jfTemplateDataElement) {
                     var orderEntity=jfTemplateDataElement.fields;
@@ -600,12 +600,12 @@
                         }
                     }
                 });
-                console.log("本次同步检测到 京东变化订单数:"+orderEntityModifiedList.length+" ,京东新增订单数:"+orderEntityNewList.length);
                 console.log("orderEntityNewList:"+JSON.stringify(orderEntityNewList));
                 console.log("orderEntityModifiedList:"+JSON.stringify(orderEntityModifiedList));
                 saveOrderListToTemplate(orderEntityNewList,function () {
                     console.log("新存入"+orderEntityNewList.length);
                 });
+                alert("本次同步: 京东变化订单数:"+orderEntityModifiedList.length+" ,京东新增订单数:"+orderEntityNewList.length);
                 return;
                 //整合JF订单数据与jd订单数据（出库信息）[废弃]
                 var fullOrderEntityList =orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
