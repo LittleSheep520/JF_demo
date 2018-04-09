@@ -433,14 +433,14 @@
         });
     }
     var templateDefinition={
-        orderTemplateId:112,
+        orderTemplateId:109,
         orderTemplateFieldKeys:{
-            "orderId":"订单编号",
-            "orderStartTime":"2018-03-28 14:09:44",
-            "paymentConfirmTime":"2018-04-05 14:09:46",
-            "shopName":"下单平台",
-            "orderTotalPrice":"500",
-            "pin":"pin",
+            "orderId":"1269",
+            "orderStartTime":"1270",
+            "paymentConfirmTime":"1271",
+            "shopName":"1272",
+            "orderTotalPrice":"1273",
+            "pin":"1274",
             "1275":"收获人",
             "1276":"收获地址",
             "1277":"023676445",
@@ -455,17 +455,18 @@
             "1295":"物流公司",
             "1296":"快递单号",
             "1297":"快递单号变更",
-            "1299":"3"
+            "1299":"3",
+            "1303":"东最后修改时间"
         },
         convertToOrderTemplateEntity:function (order){
             var orderEntity=new Object();
-            orderEntity[1269]=order.orderId;
-            orderEntity[1270]=order.orderStartTime;
-            orderEntity[1271]=order.paymentConfirmTime;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.orderId]=order.orderId;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.orderStartTime]=order.orderStartTime;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.paymentConfirmTime]=order.paymentConfirmTime;
 
             //orderEntity.orderTotalPrice=order.orderTotalPrice;
-            orderEntity[1274]=order.pin;
-            orderEntity[1274]=order.modified;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.pin]=order.pin;
+            orderEntity[1303]=order.modified;
             //orderEntity.consigneeName=order.consigneeInfo.fullname;
             //orderEntity.consigneeAddress=order.consigneeInfo.fullAddress;
             //orderEntity.consigneeTelephone=order.consigneeInfo.telephone;
@@ -595,6 +596,8 @@
                     }
                 });
                 console.log("本次同步检测到 京东变化订单数:"+orderEntityModifiedList.length+" ,京东新增订单数:"+orderEntityNewList.length);
+                console.log("orderEntityNewList:"+JSON.stringify(orderEntityNewList));
+                console.log("orderEntityModifiedList:"+JSON.stringify(orderEntityModifiedList));
                 saveOrderListToTemplate(orderEntityNewList,function () {
                     console.log("新存入"+orderEntityNewList.length);
                 });
