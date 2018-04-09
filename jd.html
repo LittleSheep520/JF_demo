@@ -53,6 +53,9 @@
 <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 -->
 <script type="text/javascript">
+    function equals(s1,s2){
+        return s1.indexOf(s2.trim())>=0;
+    }
     //数组添方法
     Array.prototype.myfind= function(marchFun)
     {
@@ -585,12 +588,12 @@
                 var orderEntityNewList=[];
                 orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
                     var orderEntityExist =orderEntityList.myfind(function (jfOrderEntity) {
-                        return jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]==jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
                     });
                     if(null==orderEntityExist){
                         orderEntityNewList.push(jdOrderEntity);
                     }else{
-                        if(orderEntityExist[templateDefinition.orderTemplateFieldKeys.modified]!=jdOrderEntity.modified){
+                        if(!equals(orderEntityExist[templateDefinition.orderTemplateFieldKeys.modified],jdOrderEntity.modified)){
                             //数据库记录自增id
                             jdOrderEntity.id=orderEntityExist.id;
                             orderEntityModifiedList.push(jdOrderEntity)
