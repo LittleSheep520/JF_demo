@@ -441,22 +441,22 @@
             "shopName":"1272",
             "orderTotalPrice":"1273",
             "pin":"1274",
-            "1275":"收获人",
-            "1276":"收获地址",
-            "1277":"023676445",
-            "1278":"18524479999",
-            "1279":"vatInfo",
-            "1280":"发票抬头",
-            "1281":"税号",
-            "1282":"买家留言",
-            "1283":"卖家留言",
-            "1284":"订单状态",
-            "1293":"订单来源",
+            "fullname":"1275",
+            "fullAddress":"1276",
+            "telephone":"1277",
+            "mobile":"1278",
+            "invoiceInfo":"1279",
+            "invoiceTitle":"1280",
+            "invoiceCode":"1281",
+            "venderRemark":"1282",
+            "orderRemark":"1283",
+            "orderState":"1284",
+            "orderSource":"1293",
+            "modified":"1303",
             "1295":"物流公司",
             "1296":"快递单号",
             "1297":"快递单号变更",
-            "1299":"3",
-            "1303":"东最后修改时间"
+            "1299":"包裹数"
         },
         convertToOrderTemplateEntity:function (order){
             var orderEntity=new Object();
@@ -464,22 +464,22 @@
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderStartTime]=order.orderStartTime;
             orderEntity[templateDefinition.orderTemplateFieldKeys.paymentConfirmTime]=order.paymentConfirmTime;
 
-            //orderEntity.orderTotalPrice=order.orderTotalPrice;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.orderTotalPrice]=order.orderTotalPrice;
             orderEntity[templateDefinition.orderTemplateFieldKeys.pin]=order.pin;
-            orderEntity[1303]=order.modified;
-            //orderEntity.consigneeName=order.consigneeInfo.fullname;
-            //orderEntity.consigneeAddress=order.consigneeInfo.fullAddress;
-            //orderEntity.consigneeTelephone=order.consigneeInfo.telephone;
-            //orderEntity.consigneeMobile=order.consigneeInfo.mobile;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.modified]=order.modified;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.fullname]=order.consigneeInfo.fullname;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.fullAddress]=order.consigneeInfo.fullAddress;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.telephone]=order.consigneeInfo.telephone;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.mobile]=order.consigneeInfo.mobile;
 
-            //orderEntity.invoiceInfo=order.invoiceInfo;
-            //orderEntity.invoiceTitle=order.invoiceEasyInfo.invoiceTitle;
-            //orderEntity.invoiceCode=order.invoiceEasyInfo.invoiceCode;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.invoiceInfo]=order.invoiceInfo;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.invoiceTitle]=order.invoiceEasyInfo.invoiceTitle;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.invoiceCode]=order.invoiceEasyInfo.invoiceCode;
 
-            //orderEntity.venderRemark=order.venderRemark;
-            //orderEntity.orderRemark=order.orderRemark;
-            //orderEntity.orderState=order.orderState;
-            //orderEntity.orderSource=order.orderSource;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.venderRemark]=order.venderRemark;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.orderRemark]=order.orderRemark;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.orderState]=order.orderState;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.orderSource]=order.orderSource;
             return orderEntity;
         },
         appendDeliveryInfoToOrderTemplateEntity:function (orderEntity,orderEntityListWithDeliverInfo) {
