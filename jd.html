@@ -584,19 +584,17 @@
                 //jd有新增的条目
                 var orderEntityNewList=[];
                 orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
-                    var orderEntityModified =orderEntityList.myfind(function (jfOrderEntity) {
-                        return jfOrderEntity.orderId==jdOrderEntity.id&&jfOrderEntity.modified!=jfOrderEntity.modified;
-                    });
-                    if(null!=orderEntityModified){
-                        //数据库记录自增id
-                        jdOrderEntity.id=orderEntityModified.id;
-                        orderEntityModifiedList.push(jdOrderEntity)
-                    }
                     var orderEntityExist =orderEntityList.myfind(function (jfOrderEntity) {
-                        return jfOrderEntity.orderId==jdOrderEntity.id;
+                        return jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]==jdOrderEntity.id;
                     });
-                    if(!orderEntityExist){
+                    if(null==orderEntityExist){
                         orderEntityNewList.push(jdOrderEntity);
+                    }else{
+                        if(orderEntityExist[templateDefinition.orderTemplateFieldKeys.modified]!=jdOrderEntity.modified){
+                            //数据库记录自增id
+                            jdOrderEntity.id=orderEntityExist.id;
+                            orderEntityModifiedList.push(jdOrderEntity)
+                        }
                     }
                 });
                 console.log("本次同步检测到 京东变化订单数:"+orderEntityModifiedList.length+" ,京东新增订单数:"+orderEntityNewList.length);
