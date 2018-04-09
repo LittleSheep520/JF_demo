@@ -426,7 +426,7 @@
                 password: "10086110"//密码(必需)
             }
         }).done(function (res) {//请求完成后的处理。下文将省略此部分
-            apiToken=res.token;
+            apiToken=res.token.token;
             //$.cookie("token", res.token, { expires: 30 });
         }).fail(function (jqXHR, textStatus, errMsg) {//请求失败后的处理。下文将省略此部分
             alert(errMsg);
@@ -535,12 +535,27 @@
                 orderListHandler(orderEntityList);
             },
             error: function(xhr,status,error){
+                alert("apicaller登陆过期，已尝试自动重新登陆。请重新进行你的操作。");
                 if(status==403){
                     alert("apicaller登陆过期，已尝试自动重新登陆。请重新进行你的操作。");
                     apiCallerInit();
                 }else{
                     alert("JF apicall 出错");
                 }
+            }
+        });
+    }
+    function saveOrderListToTemplate(orderList,success) {
+        //建立数据对象。要添加多条记录，请使用对象数组：[{...}, {...}, {...}]
+        //var data = {"1269":"2","1270":"2018-03-28 14:09:44","1271":"2018-04-05 14:09:46","1272":"阿三大多4","1273":"32","1274":"adsd","1275":"阿斯顿","1276":"萨达","1277":"4968489","1278":"12365","1279":"0","1280":"","1281":"","1282":"","1283":"","1284":"","1293":"","1295":"","1296":"","1297":""};
+        var data=orderList;
+        $.ajax({
+            url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
+            type: "post",//使用post方法
+            headers: getHeaders(),
+            data: JSON.stringify(data),//将数据对象转换为字符串
+            success:function () {
+                success();
             }
         });
     }
@@ -563,19 +578,28 @@
                 });
                 console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
 
-                //找出jd有改动的条目
+                //jd有改动的条目
                 var orderEntityModifiedList=[];
+                //jd有新增的条目
+                var orderEntityNewList=[];
                 orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
                     var orderEntityModified =orderEntityList.myfind(function (jfOrderEntity) {
                         return jfOrderEntity.orderId==jdOrderEntity.id&&jfOrderEntity.modified!=jfOrderEntity.modified;
                     });
                     if(null!=orderEntityModified){
+                        //数据库记录自增id
                         jdOrderEntity.id=orderEntityModified.id;
-                        jdOrderEntity.
                         orderEntityModifiedList.push(jdOrderEntity)
+                    }else{
+                        orderEntityNewList.push(jdOrderEntity);
                     }
-                })
-                //整合JF订单数据与jd订单数据（出库信息）
+                });
+                console.log("本次同步检测到 京东变化订单数:"+orderEntityModifiedList.length+" ,京东新增订单数:"+orderEntityNewList.length);
+                saveOrderListToTemplate(orderEntityNewList,function () {
+                    console.log("新存入"+orderEntityNewList.length);
+                });
+                return;
+                //整合JF订单数据与jd订单数据（出库信息）[废弃]
                 var fullOrderEntityList =orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
                     return templateDefinition.appendDeliveryInfoToOrderTemplateEntity(orderEntity,orderEntityList);
                 });
