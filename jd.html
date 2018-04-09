@@ -593,7 +593,7 @@
                     if(null==orderEntityExist){
                         orderEntityNewList.push(jdOrderEntity);
                     }else{
-                        if(!equals(orderEntityExist[templateDefinition.orderTemplateFieldKeys.modified],jdOrderEntity.modified)){
+                        if(!equals(orderEntityExist[templateDefinition.orderTemplateFieldKeys.modified],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.modified])){
                             //数据库记录自增id
                             jdOrderEntity.id=orderEntityExist.id;
                             orderEntityModifiedList.push(jdOrderEntity)
@@ -645,45 +645,6 @@
             })
         })
         return;
-        $.ajax({
-            url: "http://zjtyjj.320.io/api/109",//接口：api/{模板ID}
-            type: "get",
-            headers: getHeaders(),
-            data: {
-                filter: "NotFinished",//过滤器名称(可选)。指定了filter，将忽略search和key参数
-                page: 0,//页码(可选)。从0起计，默认值：0
-                pagesize: 1000//每页数量(可选)。默认值：表格视图默认版式的每页数量
-            }
-        });
-
-        $.ajax({
-            url: "http://host/api/1",//接口：api/{模板ID}
-            type: "delete",
-            headers: getHeaders(),
-            data: {
-                ids: "1,2"//要删除的记录ID序列(必需)
-            }
-        });
-
-        //建立数据对象。要添加多条记录，请使用对象数组：[{...}, {...}, {...}]
-        var data = {"1269":"2","1270":"2018-03-28 14:09:44","1271":"2018-04-05 14:09:46","1272":"阿三大多4","1273":"32","1274":"adsd","1275":"阿斯顿","1276":"萨达","1277":"4968489","1278":"12365","1279":"0","1280":"","1281":"","1282":"","1283":"","1284":"","1293":"","1295":"","1296":"","1297":""};
-        $.ajax({
-            url: "http://host/api/4",//接口：api/{模板ID}
-            type: "post",//使用post方法
-            headers: getHeaders(),
-            data: JSON.stringify(data)//将数据对象转换为字符串
-        });
-
-        console.log("getModelRecoder");
-        $.ajax({
-            url: baseUrl+"/api/109/1",//接口：api/{模板ID}/{记录ID}
-            type: "delete",
-            headers: getHeaders(),
-            success:function (data) {
-                console.log("getModelRecoder success");
-                console.log(JSON.stringify(data));
-            }
-        });
     }
     function importOrderListBtnBind(){
         $("#shop1ImportBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
