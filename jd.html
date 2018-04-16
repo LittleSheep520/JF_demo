@@ -575,6 +575,7 @@
             orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
                 jdOrderEntity.key=templateDefinition.orderTemplateFieldKeys.orderId;
                 jdOrderEntity.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                jdOrderEntity.addifno=true;
             });
             $.ajax({
                 url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
