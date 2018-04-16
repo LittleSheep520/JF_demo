@@ -580,19 +580,22 @@
                 jdOrderEntity.addifno=true;
             });
 
-            // 删除已经完成的订单
+            // 标记已经完成的订单
             getOrderListFromTemplateByFilter("NotFinished",function (orderEntityList) {
                 console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: " + orderEntityList.length);
                 //console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
                 var finishedStatusOrderIds = [];
-                var orders = [];
                 orderEntityList.forEach(function (jfOrderEntity) {
                     var notInJdListOrder = orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
                         return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId], jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
                     })
                     if (null == notInJdListOrder) {
-                        jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+                        //jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
                         finishedStatusOrderIds.push(jfOrderEntity.id);
+                        var finishedOrder={};
+                        finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                        finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+                        orderEntityListConvertFromJDOrderList.push(finishedOrder);
                     }
                 });
 
