@@ -14,7 +14,11 @@
 <body>
 <h4>
     京东订单数据同步
-    <span><a id="shopName"></a><button id="shop1ImportBtn">同步</button><a id="total"></a></span>
+    <span><a id="shopName"></a>
+        <button id="shop1ImportBtn">同步</button>
+        <button id="outStorgeBtn">同步</button>
+
+        <a id="total"></a></span>
 
 </h4>
 <table class="table table-striped">
@@ -609,8 +613,27 @@
             });
         })
     }
+    function outStrage(orderId,deliverInfoLogisticsId,deliverInfoWaybill,deliverInfoCodeChange,size) {
+        console.log("outStrage："+orderId+deliverInfoLogisticsId+deliverInfoWaybill+deliverInfoCodeChange+size);
+
+        var url = 'https://api.jd.com/routerjson?v=2.0&method=360buy.order.sop.outstorage&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token
+            +'&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource,modified","page":"'+page+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
+        +'360buy_param_json={"logistics_id:"'+deliverInfoLogisticsId+'",waybill:"'+deliverInfoWaybill+'",order_id":'+orderId+',"trade_no":""};
+        $.ajax({
+            url: url,
+            success: function (data) {
+                console.log(JSON.stringify(data));
+            }
+        })
+    }
     function importOrderListBtnBind(){
         $("#shop1ImportBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
+            importOrderList();
+        })
+    }
+    //360buy.order.sopl.outstorage
+    function outstorageBtnBind(){
+        $("#outStorgeBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
             importOrderList();
         })
     }
