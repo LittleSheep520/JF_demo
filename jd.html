@@ -607,7 +607,7 @@
                     type: "delete",
                     headers: getHeaders(),
                     data: {
-                        ids: JSON.stringify(finishedStatusOrderIds)//要删除的记录ID序列(必需)
+                        ids: finishedStatusOrderIds.join(",")//要删除的记录ID序列(必需)
                     },
                     success:function (data) {
                         console.log("本次同步删除已完成状态的订单数："+finishedStatusOrderIds.length);
