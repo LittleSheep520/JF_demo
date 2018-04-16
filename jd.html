@@ -567,6 +567,7 @@
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
             console.log("getOrderList抓取京东全部未完成订单完毕,size:"+orderList.length);
+
             //JD订单列表转化为JF模板格式
             var orderEntityListConvertFromJDOrderList=orderList.map(function (order) {
                 return templateDefinition.convertToOrderTemplateEntity(order);
@@ -578,6 +579,8 @@
                 jdOrderEntity.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
                 jdOrderEntity.addifno=true;
             });
+
+            //批量保存jd订单（新增，按订单号选择性更新字段）
             $.ajax({
                 url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
                 type: "put",//使用put方法
@@ -599,8 +602,18 @@
                         finishedStatusOrderIds.push(jfOrderEntity.id);
                     }
                 });
-                console.log("本次同步删除已完成状态的订单数："+finishedStatusOrderIds.length);
-
+                $.ajax({
+                    url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
+                    type: "delete",
+                    headers: getHeaders(),
+                    data: {
+                        ids: finishedStatusOrderIds//要删除的记录ID序列(必需)
+                    },
+                    success:function (data) {
+                        console.log("本次同步删除已完成状态的订单数："+finishedStatusOrderIds.length);
+                        console.log(JSON.stringify(data));
+                    }
+                });
             })
             return;
             //#########################################手动比对更新与新增[废弃]
