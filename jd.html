@@ -566,12 +566,13 @@
     function importOrderList(){
         console.log("downloadOrderList");
         getOrderList(function (orderList) {
-            console.log("getOrderList抓取完毕"+orderList.length);
+            console.log("getOrderList抓取京东全部未完成订单完毕,size:"+orderList.length);
             //JD订单列表转化为JF模板格式
             var orderEntityListConvertFromJDOrderList=orderList.map(function (order) {
                 return templateDefinition.convertToOrderTemplateEntity(order);
             });
-            console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
+            //console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
+
             orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
                 jdOrderEntity.key=templateDefinition.orderTemplateFieldKeys.orderId;
                 jdOrderEntity.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
@@ -583,6 +584,24 @@
                 headers: getHeaders(),
                 data: JSON.stringify(orderEntityListConvertFromJDOrderList)
             });
+
+            // 删除已经完成的订单
+            getOrderListFromTemplateByFilter("AllOrder",function (orderEntityList) {
+                console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: "+orderEntityList.length);
+                //console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
+                var finishedStatusOrderIds=[];
+                var orders=[];
+                orderEntityList.forEach(function (jfOrderEntity) {
+                    var notInJdListOrder=orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
+                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
+                    })
+                    if(null==notInJdListOrder){
+                        finishedStatusOrderIds.push(jfOrderEntity.id);
+                    }
+                });
+                console.log("本次同步删除已完成状态的订单数："+finishedStatusOrderIds.length);
+
+            })
             return;
             //#########################################手动比对更新与新增[废弃]
 
