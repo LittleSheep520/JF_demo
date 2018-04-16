@@ -591,7 +591,7 @@
                         return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
                     })
                     if(null==notInJdListOrder){
-                        jfOrderEntity[templateDefinition.orderTemplateFieldKeys.status]="FINISHED_L";
+                        jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState]="FINISHED_L";
                         finishedStatusOrderIds.push(jfOrderEntity.id);
                     }
                 });
