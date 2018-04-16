@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7620fcb8-7afa-4be9-848f-db856ebd066c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/jd.html" afterPath="$PROJECT_DIR$/jd.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -42,8 +41,8 @@
       <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="616" column="105" lean-forward="false" selection-start-line="616" selection-start-column="105" selection-end-line="616" selection-end-column="105" />
+            <state relative-caret-position="322">
+              <caret line="620" column="142" lean-forward="false" selection-start-line="620" selection-start-column="142" selection-end-line="620" selection-end-column="142" />
               <folding>
                 <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#1197#1204#1" expanded="true" />
@@ -194,12 +193,12 @@
       <workItem from="1523023952977" duration="188000" />
       <workItem from="1523032555184" duration="7601000" />
       <workItem from="1523285745238" duration="8307000" />
-      <workItem from="1523862325018" duration="14340000" />
+      <workItem from="1523862325018" duration="15495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95351000" />
+    <option name="totallyTimeSpent" value="96506000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -588,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="616" column="105" lean-forward="false" selection-start-line="616" selection-start-column="105" selection-end-line="616" selection-end-column="105" />
+        <state relative-caret-position="322">
+          <caret line="620" column="142" lean-forward="false" selection-start-line="620" selection-start-column="142" selection-end-line="620" selection-end-column="142" />
           <folding>
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1197#1204#1" expanded="true" />
