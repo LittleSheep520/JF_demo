@@ -582,142 +582,29 @@
 
             // 删除已经完成的订单
             getOrderListFromTemplateByFilter("NotFinished",function (orderEntityList) {
-                console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: "+orderEntityList.length);
+                console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: " + orderEntityList.length);
                 //console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
-                var finishedStatusOrderIds=[];
-                var orders=[];
+                var finishedStatusOrderIds = [];
+                var orders = [];
                 orderEntityList.forEach(function (jfOrderEntity) {
-                    var notInJdListOrder=orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
-                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
+                    var notInJdListOrder = orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
+                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId], jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
                     })
-                    if(null==notInJdListOrder){
-                        jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState]="FINISHED_L";
+                    if (null == notInJdListOrder) {
+                        jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
                         finishedStatusOrderIds.push(jfOrderEntity.id);
                     }
                 });
-/*                    url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                    type: "delete",
+
+                //批量保存jd订单（新增，按订单号选择性更新字段）
+                $.ajax({
+                    url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
+                    type: "put",//使用put方法
                     headers: getHeaders(),
-                    data: {
-                        ids: finishedStatusOrderIds.join(",")//要删除的记录ID序列(必需)
-                    },
-                    success:function (data) {
-                        console.log("本次同步删除已完成状态的订单数："+finishedStatusOrderIds.length);
-                        console.log(JSON.stringify(data));
-                    }
+                    data: JSON.stringify(orderEntityListConvertFromJDOrderList)
                 });
-            })*/
-            //批量保存jd订单（新增，按订单号选择性更新字段）
-            $.ajax({
-                url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                type: "put",//使用put方法
-                headers: getHeaders(),
-                data: JSON.stringify(orderEntityListConvertFromJDOrderList)
             });
-            return;
-            // 删除已经完成的订单
-            getOrderListFromTemplateByFilter("AllOrder",function (orderEntityList) {
-                console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: "+orderEntityList.length);
-                //console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
-                var finishedStatusOrderIds=[];
-                var orders=[];
-                orderEntityList.forEach(function (jfOrderEntity) {
-                    var notInJdListOrder=orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
-                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
-                    })
-                    if(null==notInJdListOrder){
-                        finishedStatusOrderIds.push(jfOrderEntity.id);
-                    }
-                });
-                $.ajax({
-                    url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                    type: "delete",
-                    headers: getHeaders(),
-                    data: {
-                        ids: finishedStatusOrderIds.join(",")//要删除的记录ID序列(必需)
-                    },
-                    success:function (data) {
-                        console.log("本次同步删除已完成状态的订单数："+finishedStatusOrderIds.length);
-                        console.log(JSON.stringify(data));
-                    }
-                });
-            })
-            return;
-            //#########################################手动比对更新与新增[废弃]
-
-            getOrderListFromTemplateByFilter("AllOrder",function (orderEntityList) {
-                console.log("getOrderListFromTemplateByFilter抓取完毕,size: "+orderEntityList.length);
-                console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
-                var ids=[];
-                var orders=[];
-                //JD订单列表转化为JF模板格式
-                var orderEntityListConvertFromJDOrderList=orderList.map(function (order) {
-                    return templateDefinition.convertToOrderTemplateEntity(order);
-                });
-                console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
-                //jd有改动的条目
-                var orderEntityModifiedList=[];
-                //jd有新增的条目
-                var orderEntityNewList=[];
-                orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
-                    var orderEntityExist =orderEntityList.myfind(function (jfOrderEntity) {
-                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
-                    });
-                    if(null==orderEntityExist){
-                        orderEntityNewList.push(jdOrderEntity);
-                    }else{
-                        if(!equals(orderEntityExist[templateDefinition.orderTemplateFieldKeys.modified],jdOrderEntity[templateDefinition.orderTemplateFieldKeys.modified])){
-                            //数据库记录自增id
-                            jdOrderEntity.id=orderEntityExist.id;
-                            orderEntityModifiedList.push(jdOrderEntity)
-                        }
-                    }
-                });
-                console.log("orderEntityNewList:"+JSON.stringify(orderEntityNewList));
-                console.log("orderEntityModifiedList:"+JSON.stringify(orderEntityModifiedList));
-                saveOrderListToTemplate(orderEntityNewList,function () {
-                    console.log("新存入"+orderEntityNewList.length);
-                });
-                console.log("本次同步: 京东变化订单数:"+orderEntityModifiedList.length+" ,京东新增订单数:"+orderEntityNewList.length);
-                return;
-                //整合JF订单数据与jd订单数据（出库信息）[废弃]
-                var fullOrderEntityList =orderEntityListConvertFromJDOrderList.map(function (orderEntity) {
-                    return templateDefinition.appendDeliveryInfoToOrderTemplateEntity(orderEntity,orderEntityList);
-                });
-                console.log("fullOrderEntityList:"+JSON.stringify(fullOrderEntityList));
-
-                var ids=orderEntityList.map(function (e) {
-                    //保留第一条
-                    if(e.id==1||e.id==2){
-                        return 0;
-                    }
-                    return e.id;
-                })
-                //删除模板所有订单
-                $.ajax({
-                    url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                    type: "delete",
-                    headers: getHeaders(),
-                    data: {
-                        ids: JSON.stringify(ids)//要删除的记录ID序列(必需)
-                    },
-                    success:function (rs) {
-                        //保存整合数据到模板中
-                        $.ajax({
-                            url: baseUrl+"/api/"+templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                            type: "post",//使用post方法
-                            headers: getHeaders(),
-                            data: JSON.stringify(fullOrderEntityList),//将数据对象转换为字符串
-                            success:function (result) {
-                                alert("同步成功! 交易中订单条数: "+result.data.id.length);
-                            }
-                        });
-                    }
-                });
-                return;
-            })
         })
-        return;
     }
     function importOrderListBtnBind(){
         $("#shop1ImportBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
