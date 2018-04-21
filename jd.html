@@ -642,7 +642,7 @@
         $.ajax({
             url: url,
             success: function (data) {
-                console.log(JSON.stringify(data));
+                console.log(data);
                 console.log("分配的运单号是："+JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0]);
                 var row = {};
                 row[templateDefinition.orderTemplateFieldKeys.deliverInfoCode]="'"+JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0]+"'";
