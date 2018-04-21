@@ -619,7 +619,11 @@
                     data: JSON.stringify(orderEntityListConvertFromJDOrderList),
                     success:function (data) {
                         console.log("同步成功! "+JSON.stringify(data));
-                        alert("同步成功! "+JSON.stringify(data));
+                        iziToast.show({
+                            title: '同步成功!',
+                            message: "更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length,
+                            color:"#DD0000",
+                        });
                         location.reload(true);
                     }
                 });
@@ -736,10 +740,6 @@
         loadShop(shopConfig);
         console.log("reday exc importOrderListBtnBind");
         importOrderListBtnBind();
-        iziToast.show({
-            title: 'Hello World!',
-            message: 'I am a basic toast message!'
-        });
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
