@@ -616,7 +616,8 @@
                     headers: getHeaders(),
                     data: JSON.stringify(orderEntityListConvertFromJDOrderList),
                     success:function (data) {
-                        alert("同步成功! "+JSON.stringify(data));
+                        ("同步成功! "+JSON.stringify(data));
+                        console.log("同步成功! "+JSON.stringify(data));
                         location.reload(true);
                     }
                 });
