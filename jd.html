@@ -637,7 +637,7 @@
         //https://api.jd.com/routerjson?v=2.0&method=jingdong.etms.waybillcode.get&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=5d2a449c-6de0-40c3-9649-df0c07b6aa64&360buy_param_json={"preNum":"1","customerCode":"021K35939","orderType":"0"}&timestamp=2018-04-21 11:40:03&sign=ED35D1864B807C55752F807B1BE6D61E
 
         var url = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.etms.waybillcode.get&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token
-            +'&360buy_param_json={"preNum":"1","customerCode":+'+customerCode+',"orderType":"0"}';
+            +'&360buy_param_json={"preNum":"1","customerCode":"'+customerCode+'","orderType":"0"}';
         var list=[];
         $.ajax({
             url: url,
