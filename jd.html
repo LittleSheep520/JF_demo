@@ -649,7 +649,10 @@
                     url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
                     type: "put",//使用put方法
                     headers: getHeaders(),
-                    data: JSON.stringify(list)
+                    data: JSON.stringify(list),
+                    success:function(){
+                        location.reload(true);
+                    }
                 });
             }
         })
