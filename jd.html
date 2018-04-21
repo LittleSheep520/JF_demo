@@ -600,13 +600,14 @@
                 });
                 finishedStatusOrderIds.forEach(function (orderId) {
                     var finishedOrder={};
-                    //finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                    finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=orderId;
                     finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
 
                     finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
                     finishedOrder.value=orderId;
                     orderEntityListConvertFromJDOrderList.push(finishedOrder);
                 });
+                console.log("需更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length)
                 console.log(JSON.stringify(orderEntityListConvertFromJDOrderList))
                 //批量保存jd订单（新增，按订单号选择性更新字段）
                 $.ajax({
