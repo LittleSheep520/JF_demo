@@ -594,16 +594,16 @@
                     })
                     if (null == notInJdListOrder) {
                         //jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
-                        finishedStatusOrderIds.push(jfOrderEntity.id);
+                        finishedStatusOrderIds.push(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
                     }
                 });
-                finishedStatusOrderIds.forEach(function (id) {
+                finishedStatusOrderIds.forEach(function (orderId) {
                     var finishedOrder={};
                     //finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
                     finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
 
                     finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
-                    finishedOrder.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                    finishedOrder.value=orderId;
                     orderEntityListConvertFromJDOrderList.push(finishedOrder);
                 });
 
