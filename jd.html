@@ -673,7 +673,7 @@
                     headers: getHeaders(),
                     data: JSON.stringify(list),
                     success:function(){
-                        location.reload(true);
+                        //location.reload(true);
                     }
                 });
             }
@@ -718,7 +718,11 @@
             success: function (data) {
                 console.log(JSON.stringify(data));
                 alert("出库结果"+JSON.stringify(data));
-                location.reload(true);
+                iziToast.show({
+                    title: '出库成功!',
+                    message: JSON.stringify(data),
+                    color:"#DD0000",
+                });
             }
         })
     }
