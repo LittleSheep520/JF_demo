@@ -16,8 +16,6 @@
     京东订单数据同步
     <span><a id="shopName"></a>
         <button id="shop1ImportBtn">同步</button>
-        <button id="outStorgeBtn">同步</button>
-
         <a id="total"></a></span>
 
 </h4>
@@ -295,7 +293,8 @@
     var shopConfig={
         id:"A",
         app_key:"8F3A3F4A4C2C8CC7FC2B351B2F4F785E",
-        access_token:"6a47cb0d-ef17-4a64-8ca0-44128655c6b8"
+        //access_token:"6a47cb0d-ef17-4a64-8ca0-44128655c6b8"
+        access_token:"5d2a449c-6de0-40c3-9649-df0c07b6aa64"
     };
     var shopName="-";
     function loadShop(thisShopConfig) {
@@ -440,26 +439,26 @@
         });
     }
     var templateDefinition={
-        orderTemplateId:109,
+        orderTemplateId:109,//在线订单模板表id
         orderTemplateFieldKeys:{
-            "orderId":"1269",
-            "orderStartTime":"1270",
-            "paymentConfirmTime":"1271",
-            "shopName":"1272",
-            "orderTotalPrice":"1273",
-            "pin":"1274",
-            "fullname":"1275",
-            "fullAddress":"1276",
-            "telephone":"1277",
-            "mobile":"1278",
-            "invoiceInfo":"1279",
-            "invoiceTitle":"1280",
-            "invoiceCode":"1281",
-            "venderRemark":"1282",
-            "orderRemark":"1283",
-            "orderState":"1284",
-            "orderSource":"1293",
-            "modified":"1303",
+            "orderId":"1269",//订单编号
+            "orderStartTime":"1270",//下单时间
+            "paymentConfirmTime":"1271",//付款时间
+            "shopName":"1272",//下单平台
+            "orderTotalPrice":"1273",//订单总金额
+            "pin":"1274",//买家id
+            "fullname":"1275",//收货人
+            "fullAddress":"1276",//收货地址
+            "telephone":"1277",//手机
+            "mobile":"1278",//固定电话
+            "invoiceInfo":"1279",//开票信息
+            "invoiceTitle":"1280",//发票抬头
+            "invoiceCode":"1281",//税号
+            "venderRemark":"1282",//买家留言
+            "orderRemark":"1283",//商家留言
+            "orderState":"1284",//订单状态
+            "orderSource":"1293",//订单来源
+            "modified":"1303",//京东最后修改时间
             "1295":"物流公司",
             "1296":"快递单号",
             "1297":"快递单号变更",
@@ -613,7 +612,7 @@
             });
         })
     }
-    function outStrage(orderId,deliverInfoLogisticsId,deliverInfoWaybill,deliverInfoCodeChange,size) {
+    function outStrage(orderId,deliverInfoLogisticsId,deliverInfoWaybill,size,deliverInfoCodeChange) {
         console.log("outStrage："+orderId+deliverInfoLogisticsId+deliverInfoWaybill+deliverInfoCodeChange+size);
 
         var url = 'https://api.jd.com/routerjson?v=2.0&method=360buy.order.sop.outstorage&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token
@@ -648,8 +647,10 @@
         var errorRes=JSON.parse(data).error_response;
         if(errorRes){
             console.log(JSON.stringify(errorRes));
-            if(errorRes.code==19){
+            if(errorRes.code==19) {
                 alert("授权到期，需重新获取JD店铺授权！")
+                //https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob
+                //5d2a449c-6de0-40c3-9649-df0c07b6aa64
             }
         }
     };
