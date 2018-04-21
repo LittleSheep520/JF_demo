@@ -51,7 +51,8 @@
     </ul>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="http://cdn.52qdw.cn/push/push.min.js"></script>
+<link rel="stylesheet" href="iziToast.min.css">
+<script src="iziToast.min.js"></script>
 <!--
 <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 -->
@@ -289,15 +290,9 @@
     }
 </script>
 <script type="text/javascript">
-    Push.create('Hi there!', {
-        body: 'This is a notification.',
-        icon: 'icon.png',
-        timeout: 3000,               // 通知超时关闭时间
-        vibrate: [100, 100, 100],
-        onClick: function() {
-            // 单击通知返回参数
-            console.log(this);
-        }
+    iziToast.show({
+        title: 'Hello World!',
+        message: 'I am a basic toast message!'
     });
     console.log("load");
     var shopConfig={
