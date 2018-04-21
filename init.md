@@ -1,5 +1,9 @@
 # 添加出库按钮
 Case      When ([1284]!='FINISHED_L') Then '<input type="button" class="btn" value="出库" onclick= self.parent.frames["topFrame"].outStrage('+[1269]+','+[1295]+','+[1296]+','+[1301]+','+[1302]+');>'     When [1284]='FINISHED_L' then '已出库' Else '' End
+Case      When ([1284]!='FINISHED_L') Then '<input type="button" class="btn" value="出库" onclick= self.parent.frames["topFrame"].outStrage('+[1269]+','+[1295]+','+[1296]+','+[1301]+','+[1302]+');>'     When [1284]='FINISHED_L' then '已出库' Else '' End
+Case      When ([1284]!='FINISHED_L') Then '<input type="button" class="btn" value="获取运单号" onclick= self.parent.frames["topFrame"].getDeliverInfoCode('+[1295]+');><input type="button" class="btn" value="出库" onclick= self.parent.frames["topFrame"].outStrage('+[1269]+','+[1295]+','+[1296]+','+[1301]+','+[1302]+');>'     When [1284]='FINISHED_L' then '已出库' Else '' End
+
+
 Case      When ([1284]!='FINISHED_L') Then '<input type="button" class="btn" value="获取运单号" onclick= self.parent.frames["topFrame"].getDeliverInfoCode('+[1295]+');><input type="button" class="btn" value="出库" onclick= self.parent.frames["topFrame"].outStrage('+[1269]+','+[1295]+','+[1296]+','+[1301]+','+[1302]+');>'     When [1284]='FINISHED_L' then '已出库' Else '' End
 
 # apicaller账号,权限
