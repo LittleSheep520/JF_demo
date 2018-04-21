@@ -17,12 +17,10 @@ $(document).ready(function(){
 })
 
 $(function(){
+     if(getPage() == "table.aspx"){
+            $("<input class=\"btn\" type=\"button\" value=\"同步京东订单\" onclick=\"self.parent.frames['topFrame'].importOrderList();\" />").prependTo("#btnArea");
+     }
     if (getPage() == "topbar.aspx" && getUser() != "admin") {
         $("#help").hide();
     }
-     if(getPage() == "detail.aspx" && getUrlParam("tid") ==109){
-    	$(document).ready(function(){
-     		$("<input class=\"btn\" type=\"button\" value=\"同步京东订单\" onclick=\"importOrderList()\" />").prependTo("#btnArea");
-    	});
-     } 
 })
