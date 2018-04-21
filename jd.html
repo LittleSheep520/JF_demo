@@ -633,7 +633,7 @@
             success: function (data) {
                 console.log(JSON.stringify(data));
                 console.log("分配的运单号是："+data.resultInfo.deliveryIdList[0]);
-                toPopup('detail.aspx?tid='+templateDefinition.orderTemplateId+'&fid=1296&value='+data.resultInfo.deliveryIdList[0]);
+
                 var data = {};
                 data[templateDefinition.orderTemplateFieldKeys.deliverInfoCode]=data.resultInfo.deliveryIdList[0];
                 $.ajax({
