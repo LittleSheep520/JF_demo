@@ -632,10 +632,9 @@
             url: url,
             success: function (data) {
                 console.log(JSON.stringify(data));
-                console.log("分配的运单号是："+data.resultInfo.deliveryIdList[0]);
-
+                console.log("分配的运单号是："+JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0]);
                 var data = {};
-                data[templateDefinition.orderTemplateFieldKeys.deliverInfoCode]=data.resultInfo.deliveryIdList[0];
+                data[templateDefinition.orderTemplateFieldKeys.deliverInfoCode]=JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0];
                 $.ajax({
                     url:baseUrl+"/api/"+templateDefinition.orderTemplateId+"/"+id,//接口：api/{模板ID}/{记录ID}
                     type: "put",//使用put方法
