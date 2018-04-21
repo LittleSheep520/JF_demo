@@ -598,6 +598,9 @@
                         var finishedOrder={};
                         finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
                         finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+                        finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
+                        finishedOrder.value=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                        //jdOrderEntity.addifno=true;
                         orderEntityListConvertFromJDOrderList.push(finishedOrder);
                     }
                 });
