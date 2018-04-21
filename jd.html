@@ -290,10 +290,7 @@
     }
 </script>
 <script type="text/javascript">
-    iziToast.show({
-        title: 'Hello World!',
-        message: 'I am a basic toast message!'
-    });
+
     console.log("load");
     var shopConfig={
         id:"A",
@@ -739,6 +736,10 @@
         loadShop(shopConfig);
         console.log("reday exc importOrderListBtnBind");
         importOrderListBtnBind();
+        iziToast.show({
+            title: 'Hello World!',
+            message: 'I am a basic toast message!'
+        });
     })
     function jdResponseCheck(data){
         var errorRes=JSON.parse(data).error_response;
