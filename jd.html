@@ -595,16 +595,18 @@
                     if (null == notInJdListOrder) {
                         //jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
                         finishedStatusOrderIds.push(jfOrderEntity.id);
-                        var finishedOrder={};
-                        //finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
-                        finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
-                        finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
-                        finishedOrder.value=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
-                        //jdOrderEntity.addifno=true;
-                        orderEntityListConvertFromJDOrderList.push(finishedOrder);
                     }
                 });
-                console.log(JSON.stringify(orderEntityListConvertFromJDOrderList));
+                finishedStatusOrderIds.forEach(function (id) {
+                    var finishedOrder={};
+                    //finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                    finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+
+                    finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
+                    finishedOrder.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                    orderEntityListConvertFromJDOrderList.push(finishedOrder);
+                });
+
                 //批量保存jd订单（新增，按订单号选择性更新字段）
                 $.ajax({
                     url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
