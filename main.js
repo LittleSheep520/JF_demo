@@ -17,6 +17,6 @@
             $("#tb-menu").css({"background-image": "url(https://raw.githubusercontent.com/LittleSheep520/JF_demo/master/tb_menu_btn.png)","background-repeat":"no-repeat","background-position":"center top"});
             //js
             $("#mainPluginJs-menu").load("https://raw.githubusercontent.com/LittleSheep520/JF_demo/master/jd.html");
-            console.log("MAIN JS Laod");
+            console.log("MAIN JS laod");
     })
 </script>
