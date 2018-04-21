@@ -644,7 +644,11 @@
     function getDeliverInfoCode(orderId,deliverInfoLogisticsId) {
         //https://api.jd.com/routerjson?v=2.0&method=jingdong.etms.waybillcode.get&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=5d2a449c-6de0-40c3-9649-df0c07b6aa64&360buy_param_json={"preNum":"1","customerCode":"021K35939","orderType":"0"}&timestamp=2018-04-21 11:40:03&sign=ED35D1864B807C55752F807B1BE6D61E
         if(deliverInfoLogisticsId==2087){
-            alert("只有jd快递可以获取运单号");
+            iziToast.show({
+                title: '只有jd快递可以获取运单号!',
+                message: deliverCode,
+                color:"#DD0000",
+            });
             return;
         }
         var url = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.etms.waybillcode.get&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token
@@ -655,9 +659,10 @@
             success: function (data) {
                 console.log("0");
                 console.log(data);
-                console.log("分配的运单号是："+JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0]);
+                var deliverCode=JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0];
+                console.log("分配的运单号是："+deliverCode);
                 var row = {};
-                row[templateDefinition.orderTemplateFieldKeys.deliverInfoCode]=JSON.parse(data).jingdong_etms_waybillcode_get_responce.resultInfo.deliveryIdList[0];
+                row[templateDefinition.orderTemplateFieldKeys.deliverInfoCode]=deliverCode;
                 row.key=templateDefinition.orderTemplateFieldKeys.orderId;
                 row.value=orderId;
                 list.push(row);
@@ -674,6 +679,11 @@
                     data: JSON.stringify(list),
                     success:function(){
                         //location.reload(true);
+                        iziToast.show({
+                            title: '获取运单号成功!',
+                            message: deliverCode,
+                            color:"#DD0000",
+                        });
                     }
                 });
             }
@@ -705,6 +715,11 @@
             url: url,
             success: function (data) {
                 console.log("接单结果："+JSON.stringify(data));
+                iziToast.show({
+                    title: '运单已生效!',
+                    message: JSON.stringify(data),
+                    color:"#DD0000",
+                });
                 successHandler();
             }
         })
@@ -717,7 +732,6 @@
             url: url,
             success: function (data) {
                 console.log(JSON.stringify(data));
-                alert("出库结果"+JSON.stringify(data));
                 iziToast.show({
                     title: '出库成功!',
                     message: JSON.stringify(data),
@@ -750,7 +764,11 @@
         if(errorRes){
             console.log(JSON.stringify(errorRes));
             if(errorRes.code==19) {
-                alert("授权到期，需重新获取JD店铺授权！")
+                iziToast.show({
+                    title: '授权到期!',
+                    message: "需重新获取JD店铺授权！",
+                    color:"#DD0000",
+                });
                 //https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob
                 //5d2a449c-6de0-40c3-9649-df0c07b6aa64
             }
