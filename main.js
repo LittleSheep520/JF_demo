@@ -9,9 +9,9 @@
     }
     $(document).ready(function(){
             //page
-            $("<div class='sep'></div><div id='jd-menu' class='nav' onclick=showJdPage()><div></div>京东订单</div><div class='sep'></div>").appendTo("#main")
-            $("<div id='tb-menu' class='nav' onclick=showTbPage()><div></div>淘宝订单</div>").appendTo("#main")
-            $("<div id='mainPluginJs-menu' class='nav'><div></div>mainPluginJs</div>").appendTo("#main")
+            $("<div hidden='hidden' class='sep'></div><div id='jd-menu' class='nav' onclick=showJdPage()><div></div>京东订单</div><div class='sep'></div>").appendTo("#main")
+            $("<div hidden='hidden' id='tb-menu' class='nav' onclick=showTbPage()><div></div>淘宝订单</div>").appendTo("#main")
+            $("<div hidden='hidden' id='mainPluginJs-menu' class='nav'><div></div>mainPluginJs</div>").appendTo("#main")
             //css
             $("#jd-menu").css({"background-image": "url(https://raw.githubusercontent.com/LittleSheep520/JF_demo/master/jd_menu_btn.png)","background-repeat":"no-repeat","background-position":"center top"});
             $("#tb-menu").css({"background-image": "url(https://raw.githubusercontent.com/LittleSheep520/JF_demo/master/tb_menu_btn.png)","background-repeat":"no-repeat","background-position":"center top"});
