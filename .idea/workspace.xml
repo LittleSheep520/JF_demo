@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7620fcb8-7afa-4be9-848f-db856ebd066c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/jd.html" afterPath="$PROJECT_DIR$/jd.html" />
+      <change beforePath="$PROJECT_DIR$/init.md" afterPath="$PROJECT_DIR$/init.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="jd.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="688" column="48" lean-forward="false" selection-start-line="688" selection-start-column="48" selection-end-line="688" selection-end-column="48" />
+            <state relative-caret-position="199">
+              <caret line="671" column="143" lean-forward="false" selection-start-line="671" selection-start-column="23" selection-end-line="671" selection-end-column="143" />
               <folding>
                 <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#1150#1157#1" expanded="true" />
@@ -68,12 +68,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="init.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/init.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="209">
-                <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="25" selection-end-column="2" />
+              <first_editor relative-caret-position="133">
+                <caret line="7" column="134" lean-forward="false" selection-start-line="7" selection-start-column="134" selection-end-line="7" selection-end-column="134" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -136,8 +136,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/jdMianJs.html" />
         <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/init.md" />
         <option value="$PROJECT_DIR$/jd.html" />
+        <option value="$PROJECT_DIR$/init.md" />
       </list>
     </option>
   </component>
@@ -147,7 +147,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="208" />
     <option name="y" value="176" />
     <option name="width" value="1403" />
@@ -224,25 +224,25 @@
       <workItem from="1523032555184" duration="7601000" />
       <workItem from="1523285745238" duration="8307000" />
       <workItem from="1523862325018" duration="25206000" />
-      <workItem from="1524273291112" duration="26611000" />
+      <workItem from="1524273291112" duration="26978000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132828000" />
+    <option name="totallyTimeSpent" value="133195000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.008333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21359223" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21790724" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -670,23 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/init.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="209">
-            <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="25" selection-end-column="2" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
@@ -707,8 +690,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="688" column="48" lean-forward="false" selection-start-line="688" selection-start-column="48" selection-end-line="688" selection-end-column="48" />
+        <state relative-caret-position="199">
+          <caret line="671" column="143" lean-forward="false" selection-start-line="671" selection-start-column="23" selection-end-line="671" selection-end-column="143" />
           <folding>
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1150#1157#1" expanded="true" />
@@ -719,6 +702,23 @@
             <element signature="e#13857#16188#0" expanded="false" />
             <element signature="e#16234#16677#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="133">
+            <caret line="7" column="134" lean-forward="false" selection-start-line="7" selection-start-column="134" selection-end-line="7" selection-end-column="134" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
