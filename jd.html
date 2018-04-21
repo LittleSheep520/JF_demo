@@ -604,7 +604,7 @@
                         orderEntityListConvertFromJDOrderList.push(finishedOrder);
                     }
                 });
-
+                console.log(JSON.stringify(orderEntityListConvertFromJDOrderList));
                 //批量保存jd订单（新增，按订单号选择性更新字段）
                 $.ajax({
                     url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
