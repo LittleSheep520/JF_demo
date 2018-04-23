@@ -697,11 +697,11 @@
     function importOrderList(){
         if(shopIndex>=shopConfigs.length){
             shopIndex=0;
-            iziToast.success({
+            /*iziToast.success({
                 title: 'JD '+(shopConfigs.length)+' 个门店订单数据同步成功！',
                 message: "",
                 position: 'bottomRight'
-            });
+            });*/
             self.parent.frames["mainFrame"].location.reload(true);
             return;
         }
