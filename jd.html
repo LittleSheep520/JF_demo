@@ -303,6 +303,23 @@
 
     var shopConfig=shopConfigs[0];
 
+    function loginShop(thisShopConfig,success) {
+        shopConfig=thisShopConfig;
+        console.log("loadShop "+shopConfig.id);
+        var urlLoadShop="https://api.jd.com/routerjson?v=2.0&method=jingdong.vender.shop.query&app_key="+shopConfig.app_key+"&access_token="+shopConfig.access_token+"&360buy_param_json={}&timestamp=2018-04-04 21:58:17&sign=F2A3CBC5205B7970AFD2A3B12F49A8B3";
+        $.ajax({
+            url: urlLoadShop,
+            success: function (data) {
+                jdResponseCheck(data);
+                thisShopConfig.shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
+                iziToast.success({
+                    title: '店铺授权验证通过: '+thisShopConfig.shopName,
+                    message: ''
+                });
+                success(thisShopConfig.shopName);
+            }
+        });
+    }
     function loadShop(thisShopConfig) {
         shopConfig=thisShopConfig;
         console.log("loadShop "+shopConfig.id);
@@ -529,6 +546,7 @@
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderRemark]=order.orderRemark;
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderState]=order.orderState;
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderSource]=order.orderSource;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.shopName]=shopConfig.shopName;
             return orderEntity;
         },
         appendDeliveryInfoToOrderTemplateEntity:function (orderEntity,orderEntityListWithDeliverInfo) {
@@ -602,6 +620,7 @@
                 orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.jdPrice]=itemInfo.jdPrice;
                 orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.giftPoint]=itemInfo.giftPoint;
                 orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.productNo]=itemInfo.productNo;
+                return orderItemEntity;
             })
             return orderEntity;
         },
@@ -677,73 +696,80 @@
                 title: 'JD '+(shopConfigs.length+1)+' 个门店订单数据同步成功！',
                 message: ""
             });
+            self.parent.frames["mainFrame"].location.reload(true);
             return;
         }
         shopConfig=shopConfigs[shopIndex++];
-        console.log("downloadOrderList");
-        getOrderList(function (orderList) {
-            console.log("getOrderList抓取京东全部未完成订单完毕,size:"+orderList.length);
+        loginShop(shopConfig,function (name) {
+            console.log("downloadOrderList");
+            getOrderList(function (orderList) {
+                console.log("getOrderList抓取京东全部未完成订单完毕,size:"+orderList.length);
 
-            //JD订单列表转化为JF模板格式
-            var orderEntityListConvertFromJDOrderList=orderList.map(function (order) {
-                return templateDefinition.convertToOrderTemplateEntity(order);
-            });
-            //console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
-
-            orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
-                jdOrderEntity.key=templateDefinition.orderTemplateFieldKeys.orderId;
-                jdOrderEntity.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
-                jdOrderEntity.addifno=true;
-            });
-
-            // 标记已经完成的订单
-            getOrderListFromTemplateByFilter("NotFinished",function (orderEntityList) {
-                console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: " + orderEntityList.length);
-                //console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
-                var finishedStatusOrderIds = [];
-                orderEntityList.forEach(function (jfOrderEntity) {
-                    var notInJdListOrder = orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
-                        return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId], jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
-                    })
-                    if (null == notInJdListOrder) {
-                        //jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
-                        finishedStatusOrderIds.push(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
-                    }
+                //JD订单列表转化为JF模板格式
+                var orderEntityListConvertFromJDOrderList=orderList.map(function (order) {
+                    return templateDefinition.convertToOrderTemplateEntity(order);
                 });
-                finishedStatusOrderIds.forEach(function (orderId) {
-                    var finishedOrder={};
-                    finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=orderId;
-                    finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+                //console.log("orderEntityListConvertFromJDOrderList:"+JSON.stringify(orderEntityListConvertFromJDOrderList));
 
-                    finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
-                    finishedOrder.value=orderId;
-                    orderEntityListConvertFromJDOrderList.push(finishedOrder);
+                orderEntityListConvertFromJDOrderList.forEach(function (jdOrderEntity) {
+                    jdOrderEntity.key=templateDefinition.orderTemplateFieldKeys.orderId;
+                    jdOrderEntity.value=jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId];
+                    jdOrderEntity.addifno=true;
                 });
-                console.log("需更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length)
-                console.log(JSON.stringify(orderEntityListConvertFromJDOrderList))
-                var orderItemList=[];
-                orderEntityListConvertFromJDOrderList.forEach(function (orderEntity) {
-                    orderItemList.push(orderEntity.itemInfoList);
-                })
-                console.log("需更新订单明细："+orderItemList.length);
-                console.log(JSON.stringify(orderItemList));
-                //批量保存jd订单（新增，按订单号选择性更新字段）
-                $.ajax({
-                    url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
-                    type: "put",//使用put方法
-                    headers: getHeaders(),
-                    data: JSON.stringify(orderEntityListConvertFromJDOrderList),
-                    success:function (data) {
-                        console.log("同步成功! "+JSON.stringify(data));
-                        iziToast.success({
-                            title: shopConfig.shopName+' 订单同步成功！',
-                            message: "更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length
+
+                // 标记已经完成的订单
+                getOrderListFromTemplateByFilter("NotFinished",function (orderEntityList) {
+                    console.log("getOrderListFromTemplateByFilter抓取jf全部订单完毕,size: " + orderEntityList.length);
+                    //console.log("orderEntityList（getOrderListFromTemplateByFilter）:"+JSON.stringify(orderEntityList));
+                    var finishedStatusOrderIds = [];
+                    orderEntityList.forEach(function (jfOrderEntity) {
+                        var notInJdListOrder = orderEntityListConvertFromJDOrderList.myfind(function (jdOrderEntity) {
+                            return equals(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId], jdOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
+                        })
+                        if (null == notInJdListOrder) {
+                            //jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+                            finishedStatusOrderIds.push(jfOrderEntity[templateDefinition.orderTemplateFieldKeys.orderId]);
+                        }
+                    });
+                    finishedStatusOrderIds.forEach(function (orderId) {
+                        var finishedOrder={};
+                        finishedOrder[templateDefinition.orderTemplateFieldKeys.orderId]=orderId;
+                        finishedOrder[templateDefinition.orderTemplateFieldKeys.orderState] = "FINISHED_L";
+
+                        finishedOrder.key=templateDefinition.orderTemplateFieldKeys.orderId;
+                        finishedOrder.value=orderId;
+                        orderEntityListConvertFromJDOrderList.push(finishedOrder);
+                    });
+                    console.log("需更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length)
+                    console.log(JSON.stringify(orderEntityListConvertFromJDOrderList))
+                    var orderItemList=[];
+                    orderEntityListConvertFromJDOrderList.forEach(function (orderEntity) {
+                        orderEntity.itemInfoList.forEach(function (itemEntity) {
+                            orderItemList.push(itemEntity);
                         });
-                        self.parent.frames["mainFrame"].location.reload(true);
-                    }
+                    })
+                    console.log("需更新订单明细："+orderItemList.length);
+                    console.log(JSON.stringify(orderItemList));
+                    //批量保存jd订单（新增，按订单号选择性更新字段）
+                    $.ajax({
+                        url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
+                        type: "put",//使用put方法
+                        headers: getHeaders(),
+                        data: JSON.stringify(orderEntityListConvertFromJDOrderList),
+                        success:function (data) {
+                            console.log("同步成功! "+JSON.stringify(data));
+                            iziToast.success({
+                                title: shopConfig.shopName+' 订单同步成功！',
+                                message: "更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length
+                            });
+                            importOrderList();
+                        }
+                    });
                 });
-            });
+            })
         })
+
+
     }
 
     var customerCode="021K35939";
