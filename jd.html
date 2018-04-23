@@ -292,13 +292,17 @@
 <script type="text/javascript">
 
     console.log("load");
-    var shopConfig={
+    //region jd全局配置
+    var shopConfigs=[{
         id:"A",
         app_key:"8F3A3F4A4C2C8CC7FC2B351B2F4F785E",
         //access_token:"6a47cb0d-ef17-4a64-8ca0-44128655c6b8"
-        access_token:"5d2a449c-6de0-40c3-9649-df0c07b6aa64"
-    };
-    var shopName="-";
+        access_token:"5d2a449c-6de0-40c3-9649-df0c07b6aa64",
+        shopName:"-"
+    }];
+
+    var shopConfig=shopConfigs[0];
+
     function loadShop(thisShopConfig) {
         shopConfig=thisShopConfig;
         console.log("loadShop "+shopConfig.id);
@@ -307,13 +311,15 @@
             url: urlLoadShop,
             success: function (data) {
                 jdResponseCheck(data);
-                shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
-                $("#shopName",self.parent.frames["mainFrame"].document).html(shopName);
+                thisShopConfig.shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
+                $("#shopName",self.parent.frames["mainFrame"].document).html(thisShopConfig.shopName);
                 getOrderPage(1,pageSize);
             }
         });
     }
+    //endregion
 
+    // region 数据展示页面
     function preAndNextPageBind() {
         $("#prePage",self.parent.frames["mainFrame"].document).unbind();
         $("#prePage",self.parent.frames["mainFrame"].document).bind("click",function () {
@@ -395,6 +401,15 @@
             renderOrderPage(pageReslut);
         });
     }
+
+    function importOrderListBtnBind(){
+        $("#shop1ImportBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
+            importOrderList();
+        })
+    }
+    //endregion
+
+    //分页获取jd订单数据
     function getOrderPageData(page,pageSize,pageReslutHandler) {
         console.log("getOrderPageData");
         var urlGetOrder = 'https://api.jd.com/routerjson?v=2.0&method=jingdong.pop.order.search&app_key='+shopConfig.app_key+"&access_token="+shopConfig.access_token+'&360buy_param_json={"start_date":"","end_date":"","order_state":"WAIT_SELLER_STOCK_OUT,WAIT_GOODS_RECEIVE_CONFIRM,WAIT_SELLER_DELIVERY,PAUSE,TRADE_CANCELED,LOCKED","optional_fields":"pin,orderTotalPrice,orderState,paymentConfirmTime,orderStartTime,consigneeInfo,vatInfo,itemInfoList,invoiceInfo,orderRemark,venderRemark,orderSource,modified","page":"'+page+'","page_size":"'+pageSize+'","sortType":"1","dateType":""}';
@@ -408,9 +423,30 @@
             }
         })
     }
+    //翻页获取全部jd订单数据
+    function getOrderList(orderListHandler){
+        var pageIndex=1;
+        var pageSize=50;
+        var orderlist=[];
+        getOrderPageData(1,1,function (pageReslut) {
+            var total=pageReslut.orderTotal;
+            console.log("getOrderList 探测到总数："+total+",分批数"+(1+parseInt(total/pageSize)));
+            for(var i=1;i<parseInt(total/pageSize)+2;i++){
+                console.log("getOrderList 抓取批次："+i+"抓取size："+pageSize);
+                getOrderPageData(i,pageSize,function (pageReslut) {
+                    orderlist=orderlist.concat(pageReslut.orderInfoList);
+                    console.log("getOrderList 抓到数据条数："+pageReslut.orderInfoList.length+"目前总数："+orderlist.length);
+                    if(orderlist.length==total){
+                        orderListHandler(orderlist);
+                    }
+                })
+            }
+        });
+    }
+
     var baseUrl="http://zjtyjj.320.io";
     //注意此token失效服务器直接响应403,服务器设置了一天过期
-    var apiToken="--";
+    var apiToken="-";
     function getHeaders() {
         var token = apiToken;//登录时得到的令牌
         var key = "10086110";//API提供方设置的密钥，用以生成签名供服务器验证请求
@@ -423,7 +459,7 @@
             "sign": md5(timestamp + nonce + key)//签名
         };
     }
-    //TODO 403时调用，或每次调用
+
     function apiCallerInit() {
         $.ajax({
             url: baseUrl+"/api/login",//接口：api/login
@@ -437,7 +473,10 @@
             apiToken=res.token.token;
             //$.cookie("token", res.token, { expires: 30 });
         }).fail(function (jqXHR, textStatus, errMsg) {//请求失败后的处理。下文将省略此部分
-            alert(errMsg);
+            iziToast.error({
+                title: '蓝点系统登陆失败',
+                message: 'apicaller获取授权失败，无法调用蓝点API！'+errMsg,
+            });
         });
     }
     var templateDefinition={
@@ -503,25 +542,7 @@
         }
 
     }
-    function getOrderList(orderListHandler){
-        var pageIndex=1;
-        var pageSize=50;
-        var orderlist=[];
-        getOrderPageData(1,1,function (pageReslut) {
-            var total=pageReslut.orderTotal;
-            console.log("getOrderList 探测到总数："+total+",分批数"+(1+parseInt(total/pageSize)));
-            for(var i=1;i<parseInt(total/pageSize)+2;i++){
-                console.log("getOrderList 抓取批次："+i+"抓取size："+pageSize);
-                getOrderPageData(i,pageSize,function (pageReslut) {
-                    orderlist=orderlist.concat(pageReslut.orderInfoList);
-                    console.log("getOrderList 抓到数据条数："+pageReslut.orderInfoList.length+"目前总数："+orderlist.length);
-                    if(orderlist.length==total){
-                        orderListHandler(orderlist);
-                    }
-                })
-            }
-        });
-    }
+
     //查询JF订单 返回id等+entity
     function getOrderListFromTemplateByFilter(filter,orderListHandler) {
         console.log("getOrderListFromTemplateByFilter");
@@ -545,12 +566,17 @@
                 orderListHandler(orderEntityList);
             },
             error: function(xhr,status,error){
-                alert("apicaller登陆过期，已尝试自动重新登陆。请重新进行你的操作。");
                 if(status==403){
-                    alert("apicaller登陆过期，已尝试自动重新登陆。请重新进行你的操作。");
+                    iziToast.error({
+                        title: '蓝点系统登陆过期！',
+                        message: 'apicaller登陆过期，已尝试自动重新登陆。请重新进行你的操作。'
+                    });
                     apiCallerInit();
                 }else{
-                    alert("JF apicall 出错");
+                    iziToast.error({
+                        title: '蓝点系统调用失败',
+                        message: 'apicaller无法调用蓝点API！'
+                    });
                 }
             }
         });
@@ -619,12 +645,10 @@
                     data: JSON.stringify(orderEntityListConvertFromJDOrderList),
                     success:function (data) {
                         console.log("同步成功! "+JSON.stringify(data));
-                        iziToast.show({
+                        iziToast.success({
                             title: '同步成功!',
-                            message: "更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length,
-                            color:"#DD0000",
+                            message: "更新订单数："+orderEntityListConvertFromJDOrderList.length+" ，其中已交易完成订单数："+finishedStatusOrderIds.length
                         });
-                        //location.reload(true);
                         self.parent.frames["mainFrame"].location.reload(true);
                     }
                 });
@@ -645,10 +669,9 @@
     function getDeliverInfoCode(orderId,deliverInfoLogisticsId) {
         //https://api.jd.com/routerjson?v=2.0&method=jingdong.etms.waybillcode.get&app_key=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&access_token=5d2a449c-6de0-40c3-9649-df0c07b6aa64&360buy_param_json={"preNum":"1","customerCode":"021K35939","orderType":"0"}&timestamp=2018-04-21 11:40:03&sign=ED35D1864B807C55752F807B1BE6D61E
         if(deliverInfoLogisticsId!=2087){
-            iziToast.show({
+            iziToast.error({
                 title: '只有京东快递可以获取运单号!',
-                message: "",
-                color:"#DD0000",
+                message: ""
             });
             return;
         }
@@ -667,12 +690,6 @@
                 row.key=templateDefinition.orderTemplateFieldKeys.orderId;
                 row.value=orderId;
                 list.push(row);
-                /*$.ajax({
-                    url:baseUrl+"/api/"+templateDefinition.orderTemplateId+"/"+id,//接口：api/{模板ID}/{记录ID}
-                    type: "put",//使用put方法
-                    headers: getHeaders(),
-                    data: JSON.stringify(row)
-                });*/
                 $.ajax({
                     url: baseUrl + "/api/" + templateDefinition.orderTemplateId,//接口：api/{模板ID}
                     type: "put",//使用put方法
@@ -680,10 +697,9 @@
                     data: JSON.stringify(list),
                     success:function(){
                         //location.reload(true);
-                        iziToast.show({
+                        iziToast.success({
                             title: '获取运单号成功!',
-                            message: deliverCode,
-                            color:"#DD0000",
+                            message: deliverCode
                         });
                         self.parent.frames["mainFrame"].location.reload(true);
                     }
@@ -717,10 +733,9 @@
             url: url,
             success: function (data) {
                 console.log("接单结果："+JSON.stringify(data));
-                iziToast.show({
+                iziToast.success({
                     title: '运单已生效!',
-                    message: JSON.stringify(data),
-                    color:"#DD0000",
+                    message: JSON.stringify(data)
                 });
                 successHandler();
             }
@@ -734,25 +749,29 @@
             url: url,
             success: function (data) {
                 console.log(JSON.stringify(data));
-                iziToast.show({
+                iziToast.success({
                     title: '出库成功!',
-                    message: JSON.stringify(data),
-                    color:"#DD0000",
+                    message: JSON.stringify(data)
                 });
             }
         })
     }
-    function importOrderListBtnBind(){
-        $("#shop1ImportBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
-            importOrderList();
-        })
-    }
-    //360buy.order.sopl.outstorage
-    function outStorageBtnBind(){
-        $("#outStorgeBtn",self.parent.frames["mainFrame"].document).bind("click",function () {
-            importOrderList();
-        })
-    }
+
+    function jdResponseCheck(data){
+        var errorRes=JSON.parse(data).error_response;
+        if(errorRes){
+            console.log(JSON.stringify(errorRes));
+            if(errorRes.code==19) {
+                iziToast.error({
+                    title: '授权到期!',
+                    message: "需重新获取JD店铺授权！"
+                });
+                console.log("https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob");
+                //https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob
+            }
+        }
+    };
+
     $(function () {
         console.log("reday exc apiCallerInit");
         apiCallerInit();
@@ -761,21 +780,11 @@
         console.log("reday exc importOrderListBtnBind");
         importOrderListBtnBind();
     })
-    function jdResponseCheck(data){
-        var errorRes=JSON.parse(data).error_response;
-        if(errorRes){
-            console.log(JSON.stringify(errorRes));
-            if(errorRes.code==19) {
-                iziToast.show({
-                    title: '授权到期!',
-                    message: "需重新获取JD店铺授权！",
-                    color:"#DD0000",
-                });
-                //https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob
-                //5d2a449c-6de0-40c3-9649-df0c07b6aa64
-            }
-        }
-    };
+
+    iziToast.success({
+        title: '订单同步模块就绪！',
+        message: '',
+    });
     console.log("loadOk");
 
 </script>
