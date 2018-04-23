@@ -748,10 +748,10 @@
                     var orderItemList=[];
                     orderEntityListConvertFromJDOrderList.forEach(function (orderEntity) {
                         orderEntity.itemInfoList.forEach(function (itemEntity) {
-                            orderItemList[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
-                            orderItemList.key=templateDefinition.orderDetailTemplateFieldKeys.orderItemId;
-                            orderItemList.value=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
-                            orderItemList.push(orderItemList);
+                            itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
+                            itemEntity.key=templateDefinition.orderDetailTemplateFieldKeys.orderItemId;
+                            itemEntity.value=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
+                            orderItemList.push(itemEntity);
                         });
                     })
                     console.log("需更新订单明细数："+orderItemList.length);
