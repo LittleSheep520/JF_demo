@@ -611,6 +611,7 @@
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderRemark]=order.orderRemark;
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderState]=order.orderState;
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderSource]=order.orderSource;
+            orderEntity[templateDefinition.orderTemplateFieldKeys.shopName]=shopConfig.shopName;
             var index=0;
             orderEntity.itemInfoList=order.itemInfoList.map(function (itemInfo) {
                 var orderItemEntity={};
@@ -695,6 +696,7 @@
     var shopIndex=0;
     function importOrderList(){
         if(shopIndex>=shopConfigs.length){
+            shopIndex=0;
             iziToast.success({
                 title: 'JD '+(shopConfigs.length)+' 个门店订单数据同步成功！',
                 message: "",
