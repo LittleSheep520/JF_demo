@@ -125,3 +125,33 @@
      return o;
  })
  console.log(JSON.stringify(arrNew));
+
+ "skuName": 1037,
+     "skuName": "商品名称",
+     "itemTotal": 1038,
+         "itemTotal": "商品数量",
+     "skuId": 1039,
+         "skuId": "SKUID",
+     "jdPrice": 1040,
+         "jdPrice": "商品价格",
+
+     "giftPoint": 1041,
+         "giftPoint": "优惠金额",
+
+     "id": 1042,
+         "name": "金额小计",
+         "formula": "([F7IOIP4]-[FABB2TL])*[FPEAJKC]"
+
+     "id": 1052,
+         "templet": 91,
+         "options": ["上海仓", "金山仓", "供应商仓", "京东仓"],
+         "name": "发货仓",
+
+     "id": 1056,
+         "name": "平台",
+
+     "productNo": 1057,
+         "productNo": "产品型号",
+
+     "id": 1058,
+         "name": "发货数量",
