@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7620fcb8-7afa-4be9-848f-db856ebd066c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/init.md" afterPath="$PROJECT_DIR$/init.md" />
       <change beforePath="$PROJECT_DIR$/jd.html" afterPath="$PROJECT_DIR$/jd.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -43,15 +42,15 @@
       <file leaf-file-name="jd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="753" column="60" lean-forward="false" selection-start-line="753" selection-start-column="47" selection-end-line="753" selection-end-column="60" />
+            <state relative-caret-position="436">
+              <caret line="753" column="41" lean-forward="false" selection-start-line="753" selection-start-column="28" selection-end-line="753" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#1150#1157#1" expanded="true" />
                 <element signature="e#1257#1264#1" expanded="true" />
                 <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="e#30805#31499#0" expanded="false" />
-                <element signature="e#37338#37461#0" expanded="false" />
+                <element signature="e#37326#37449#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -228,12 +227,12 @@
       <workItem from="1523285745238" duration="8307000" />
       <workItem from="1523862325018" duration="25206000" />
       <workItem from="1524273291112" duration="35351000" />
-      <workItem from="1524493155092" duration="10509000" />
+      <workItem from="1524493155092" duration="10630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152077000" />
+    <option name="totallyTimeSpent" value="152198000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -298,7 +297,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -377,7 +376,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -418,7 +417,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -451,7 +450,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -492,7 +491,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -526,7 +525,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -559,7 +558,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -592,7 +591,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -625,7 +624,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -658,7 +657,7 @@
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -751,15 +750,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="753" column="60" lean-forward="false" selection-start-line="753" selection-start-column="47" selection-end-line="753" selection-end-column="60" />
+        <state relative-caret-position="436">
+          <caret line="753" column="41" lean-forward="false" selection-start-line="753" selection-start-column="28" selection-end-line="753" selection-end-column="41" />
           <folding>
             <element signature="n#style#0;n#th#17;n#tr#0;n#thead#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#1150#1157#1" expanded="true" />
             <element signature="e#1257#1264#1" expanded="true" />
             <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#30805#31499#0" expanded="false" />
-            <element signature="e#37338#37461#0" expanded="false" />
+            <element signature="e#37326#37449#0" expanded="false" />
           </folding>
         </state>
       </provider>
