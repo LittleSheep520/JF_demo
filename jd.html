@@ -611,9 +611,10 @@
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderRemark]=order.orderRemark;
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderState]=order.orderState;
             orderEntity[templateDefinition.orderTemplateFieldKeys.orderSource]=order.orderSource;
-            orderEntity.itemInfoList=order.itemInfoList.map(function (itemInfo,index) {
+            var index=0;
+            orderEntity.itemInfoList=order.itemInfoList.map(function (itemInfo) {
                 var orderItemEntity={};
-                orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=order.orderId;
+                orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=order.orderId+"_"+index++;
                 orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderId]=order.orderId;
                 orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.skuName]=itemInfo.skuName;
                 orderItemEntity[templateDefinition.orderDetailTemplateFieldKeys.itemTotal]=itemInfo.itemTotal;
@@ -751,6 +752,7 @@
                             itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
                             itemEntity.key=templateDefinition.orderDetailTemplateFieldKeys.orderItemId;
                             itemEntity.value=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
+                            itemEntity.addifno=true;
                             orderItemList.push(itemEntity);
                         });
                     })
