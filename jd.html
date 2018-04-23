@@ -751,7 +751,7 @@
                             orderItemList[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
                             orderItemList.key=templateDefinition.orderDetailTemplateFieldKeys.orderItemId;
                             orderItemList.value=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
-                            orderItemList.push(itemEntity);
+                            orderItemList.push(orderItemList);
                         });
                     })
                     console.log("需更新订单明细数："+orderItemList.length);
