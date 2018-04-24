@@ -750,16 +750,18 @@
                     //console.log(JSON.stringify(orderEntityListConvertFromJDOrderList))
                     var orderItemList=[];
                     orderEntityListConvertFromJDOrderList.forEach(function (orderEntity) {
-                        orderEntity.itemInfoList.forEach(function (itemEntity) {
-                            itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
-                            itemEntity.key=templateDefinition.orderDetailTemplateFieldKeys.orderItemId;
-                            itemEntity.value=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
-                            itemEntity.addifno=true;
-                            orderItemList.push(itemEntity);
-                        });
+                        if(orderEntity[templateDefinition.orderTemplateFieldKeys.orderState]!="FINISHED_L"){
+                            orderEntity.itemInfoList.forEach(function (itemEntity) {
+                                //itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId]=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
+                                itemEntity.key=templateDefinition.orderDetailTemplateFieldKeys.orderItemId;
+                                itemEntity.value=itemEntity[templateDefinition.orderDetailTemplateFieldKeys.orderItemId];
+                                itemEntity.addifno=true;
+                                orderItemList.push(itemEntity);
+                            });
+                        }
                     })
                     console.log("需更新订单明细数："+orderItemList.length);
-                    console.log(JSON.stringify(orderItemList));
+                    //console.log(JSON.stringify(orderItemList));
                     //批量保存jd订单明细（新增，按订单明细编号选择性更新字段）
                     $.ajax({
                         url: baseUrl + "/api/" + templateDefinition.orderDetailTemplateId,//接口：api/{模板ID}
