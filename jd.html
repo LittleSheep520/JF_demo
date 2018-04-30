@@ -297,16 +297,21 @@
     console.log("load");
     //region jd全局配置
     var shopConfigs=[{
-        id:"A",
+        id:"A 宜宇汽车",
         app_key:"8F3A3F4A4C2C8CC7FC2B351B2F4F785E",
         //access_token:"6a47cb0d-ef17-4a64-8ca0-44128655c6b8"
         //access_token:"5d2a449c-6de0-40c3-9649-df0c07b6aa64",
         access_token:"5992927e-08ce-4a74-bbcb-e32b132ad326",
         shopName:"-"
     },{
-        id:"B",
+        id:"B 考拉家族",
         app_key:"8F3A3F4A4C2C8CC7FC2B351B2F4F785E",
         access_token:"f56a899b-3471-42b9-ba0a-73ca258313e4",
+        shopName:"-"
+    }, {
+        id:"C JF旗舰",
+        app_key:"8F3A3F4A4C2C8CC7FC2B351B2F4F785E",
+        access_token:"5d2a449c-6de0-40c3-9649-df0c07b6aa64",
         shopName:"-"
     }];
 
@@ -323,7 +328,8 @@
                 thisShopConfig.shopName=JSON.parse(data).jingdong_vender_shop_query_responce.shop_jos_result.shop_name;
                 iziToast.success({
                     title: '店铺授权验证通过: '+thisShopConfig.shopName,
-                    message: ''
+                    message: '',
+                    position: 'bottomLeft',
                 });
                 success(thisShopConfig.shopName);
             }
@@ -917,7 +923,7 @@
             if(errorRes.code==19) {
                 iziToast.error({
                     title: '授权到期!',
-                    message: "需重新获取JD店铺授权！"
+                    message: "需重新获取JD店铺授权！"+shopConfig.shopName
                 });
                 console.log("https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob");
                 //https://oauth.jd.com/oauth/authorize?response_type=code&client_id=8F3A3F4A4C2C8CC7FC2B351B2F4F785E&redirect_uri=urn:ietf:wg:oauth:2.0:oob
